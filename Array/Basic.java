@@ -99,7 +99,6 @@ public static void max_subarray_sum(int arr[]){
 
     for(int i=0;i<arr.length;i++){
       int start=i;
-      
     for(int j=start;j<arr.length;j++){
        int ends=j;
        currsum=0;
@@ -109,20 +108,19 @@ public static void max_subarray_sum(int arr[]){
             max=currsum;
         }
     }
-    
   }}
   System.out.println(max);
   
 }
     public static void main(String args[]){
 int arr[]={1,2,3,4,5};
-       //linear(arr,5 );
-       //largest(arr);
-       //wanted_position(arr, 2);
-       //binary(arr, 2);
-       //reverse(arr);
-       //pairs(arr);
-       //subarray(arr);
+       linear(arr,5 );
+       largest(arr);
+       wanted_position(arr, 2);
+       binary(arr, 2);
+       reverse(arr);
+       pairs(arr);
+       subarray(arr);
        max_subarray_sum(arr);
     }
 }
