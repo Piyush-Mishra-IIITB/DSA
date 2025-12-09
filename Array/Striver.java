@@ -41,7 +41,7 @@ public static void rotate(int arr[],int d){
      int arr[]={1,2,3,4,5};
      //System.out.println(sorted_or_not(arr));
      //reverse_in_group(arr, 3);
-     rotate(arr, 2);
+     //rotate(arr, 2);
      for(int i=0;i<arr.length;i++){
        System.out.print(arr[i]);
      }
