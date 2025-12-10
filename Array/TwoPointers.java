@@ -120,6 +120,7 @@ class Solution {
         return result;
     }
 }
+//leetcode-16
 class Solution {
     public int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);  
@@ -152,7 +153,7 @@ class Solution {
 
 }
 
-// dutch national flag
+// dutch national flag leetcode-75
 class Solution {
     public static void swap(int[] arr, int i, int j){
         int temp = arr[i];
