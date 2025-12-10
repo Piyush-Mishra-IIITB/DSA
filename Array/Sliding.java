@@ -45,6 +45,39 @@ class Solution {
         
         }
     }
+    // leetcode 904-fruits into the basket
+    import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int totalFruit(int[] fruits) {
+        if (fruits == null || fruits.length == 0) return 0;
+
+        Map<Integer, Integer> count = new HashMap<>();
+        int low = 0;
+        int res = 0;
+        int n = fruits.length;
+
+        for (int high = 0; high < n; high++) {
+            count.put(fruits[high], count.getOrDefault(fruits[high], 0) + 1);
+
+            while (count.size() > 2) {
+                int leftFruit = fruits[low];
+                count.put(leftFruit, count.get(leftFruit) - 1);
+                if (count.get(leftFruit) == 0) {
+                    count.remove(leftFruit);
+                }
+                low++;
+            }
+
+            int len = high - low + 1;
+            res = Math.max(res, len);
+        }
+
+        return res;
+    }
+}
+
 
     public static void main(String args[]){
 
