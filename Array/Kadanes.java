@@ -64,8 +64,22 @@ public class Kadanes {
         return result;
     }
 }
-
-
+// leetcode-1749
+class Solution {
+    public int maxAbsoluteSum(int[] arr) {
+        int max_sum=arr[0];
+        int min_sum=arr[0];
+        int output=Math.abs(arr[0]);
+        for(int i=1;i<arr.length;i++){
+              max_sum=Math.max(max_sum+arr[i],arr[i]);
+              min_sum=Math.min(min_sum+arr[i],arr[i]);
+              int min_sum_absolute=Math.abs(min_sum);
+              int max_sum_absolut=Math.abs(max_sum);
+              output=Math.max(output,Math.max(min_sum_absolute,max_sum_absolut));
+        }
+        return output;
+    }
+}
 }
 }
 }
