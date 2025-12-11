@@ -23,3 +23,31 @@ public class Prefix {
     }
 }
 }
+
+//  good question leetcode-560
+class Solution {
+    public int subarraySum(int[] arr, int k) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+
+        hm.put(0, 1); 
+        int total = 0; 
+        int output = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+
+            total += arr[i];  
+
+            int find = total - k;  
+
+            
+            if (hm.containsKey(find)) {
+                output += hm.get(find);
+            }
+
+            
+            hm.put(total, hm.getOrDefault(total, 0) + 1);
+        }
+
+        return output;
+    }
+}
