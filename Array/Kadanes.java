@@ -35,6 +35,37 @@ public class Kadanes {
 
         return product;
     }
+    // good question -maximum subarray sum with one deletion
+    // leetcode-1186
+    class Solution {
+    public int maximumSum(int[] arr) {
+        int no_delete = arr[0];                
+        int one_delete = Integer.MIN_VALUE;     
+        int result = arr[0];                   
+
+        for (int i = 1; i < arr.length; i++) {
+            int prevNo = no_delete;
+            int prevOne = one_delete;
+
+          
+            no_delete = Math.max(prevNo + arr[i], arr[i]);
+
+           
+            int extendDeleted = (prevOne == Integer.MIN_VALUE) 
+                                ? Integer.MIN_VALUE 
+                                : prevOne + arr[i];
+
+            one_delete = Math.max(extendDeleted, prevNo);
+
+            
+            result = Math.max(result, Math.max(no_delete, one_delete));
+        }
+
+        return result;
+    }
+}
+
+
 }
 }
 }
