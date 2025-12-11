@@ -81,5 +81,36 @@ class Solution {
     }
 }
 }
+
+//leetcode-918
+class Solution {
+    public int maxSubarraySumCircular(int[] arr) {
+
+        int total = 0;
+
+        int curMax = 0;
+        int max_sum = arr[0];
+
+        int curMin = 0;
+        int min_sum = arr[0];
+
+        for (int i = 0; i < arr.length; i++) {
+            total += arr[i];
+
+            curMax = Math.max(curMax + arr[i], arr[i]);
+            max_sum = Math.max(max_sum, curMax);
+
+            // min subarray
+            curMin = Math.min(curMin + arr[i], arr[i]);
+            min_sum = Math.min(min_sum, curMin);
+        }
+
+        if (max_sum < 0) return max_sum;
+
+        
+        return Math.max(max_sum, total - min_sum);
+    }
+}
+
 }
 }
