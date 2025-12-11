@@ -15,5 +15,26 @@ public class Kadanes {
         }
         return sum;
     }
+
+
+    // leetcode-152
+    class Solution {
+    public int maxProduct(int[] arr) {
+        int min_end=arr[0];
+        int max_end=arr[0];
+        int product=arr[0];
+
+        for(int i=1;i<arr.length;i++){
+            int v1=arr[i];
+            int v2=max_end*arr[i];
+            int v3=min_end*arr[i];
+            max_end=Math.max(v1,Math.max(v2,v3));
+            min_end=Math.min(v1,Math.min(v2,v3));
+            product=Math.max(product,Math.max(max_end,min_end));
+        }
+
+        return product;
+    }
+}
 }
 }
