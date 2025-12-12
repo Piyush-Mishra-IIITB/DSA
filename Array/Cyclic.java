@@ -110,4 +110,29 @@ class Solution {
         return list;
     }
 }
+//leetcode 645-set mismatch
+class Solution {
+    public int[] findErrorNums(int[] arr) {
+        int i=0;
+        int n=arr.length;
+        int arr2[]=new int[2];
+        while(i<n){
+            int correct=arr[i]-1;
+            if(arr[i]!=arr[correct]){
+                int temp =arr[i];
+                arr[i]=arr[correct];
+                arr[correct]=temp;
+            }
+            else{
+                i++;
+            }}
+            for(int j=0;j<n;j++){
+                if(arr[j]!=j+1){
+                      arr2[0]=arr[j];
+                      arr2[1]=j+1;
+                }
+            }
+        return arr2;
+    }
+}
 
