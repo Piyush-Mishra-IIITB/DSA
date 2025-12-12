@@ -51,3 +51,32 @@ class Solution {
         return output;
     }
 }
+
+//leetcode -974 good question
+class Solution {
+    public int subarraysDivByK(int[] arr, int k) {
+        int result = 0;
+        int sum = 0;
+        int n = arr.length;
+
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        hm.put(0, 1);  
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+
+            int mod = sum % k;
+            if (mod < 0) {
+                mod += k;   
+            }
+
+              if (hm.containsKey(mod)) {
+                result += hm.get(mod);
+                hm.put(mod, hm.get(mod) + 1);
+            } else {
+                hm.put(mod, 1);
+            }
+        }
+
+        return result;
+    }
+}
