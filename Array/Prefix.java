@@ -80,3 +80,35 @@ class Solution {
         return result;
     }
 }
+// leetcode-525
+class Solution {
+    public int findMaxLength(int[] arr) {
+        int one=0;
+        int zero=0;
+        int n=arr.length;
+        int result=0;
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int i=0;i<n;i++){
+            if(arr[i]==0){
+                zero ++;
+            }else{
+                one++;
+            }
+            int find=zero-one;
+            if(find==0){
+                result=Math.max(result,i+1);
+            }
+            if(!hm.containsKey(find)){
+                hm.put(find,i);
+            }
+            else{
+                int prevIndex=hm.get(find);
+                int length=i-prevIndex;
+                result=Math.max(result,length);
+
+            }
+            
+        }
+        return result;
+    }
+}
