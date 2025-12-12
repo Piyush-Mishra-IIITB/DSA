@@ -138,3 +138,21 @@ class Solution {
         return max;
     }
 }
+//leetcode-1295
+class Solution {
+    public int findNumbers(int[] arr) {
+        
+        int sum=0;
+        for(int i=0;i<arr.length;i++){
+            int digit=0;
+            while(arr[i]>0){
+                arr[i]=arr[i]/10;
+                digit++;
+            }
+            if(digit%2==0){
+                sum++;
+            }
+        }
+        return sum;
+    }
+}
