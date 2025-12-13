@@ -288,4 +288,30 @@ class Solution {
 
 
     }
+}//leetcode-153
+class Solution {
+    public int findMin(int[] arr) {
+        int lowest = Integer.MAX_VALUE;
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (arr[start] <= arr[end]) {
+                lowest = Math.min(lowest, arr[start]);
+                break;
+            }
+
+            if (arr[start] <= arr[mid]) {
+                lowest = Math.min(lowest, arr[start]);
+                start = mid + 1;
+            }
+            else {
+                lowest = Math.min(lowest, arr[mid]);
+                end = mid - 1;
+            }
+        }
+        return lowest;
+    }
 }
