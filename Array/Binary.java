@@ -339,3 +339,4 @@ class Solution {
         return -1;   
     }
 }
+// done for the binary search on 1d array
