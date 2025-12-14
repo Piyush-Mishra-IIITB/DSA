@@ -165,4 +165,33 @@ class Solution {
         bookies +=count/k;
         return bookies;
     }
+    
+}// leetcode=1283
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int start=1;
+        
+        int end=Integer.MIN_VALUE;
+        for(int i=0;i<nums.length;i++){
+            end=Math.max(end,nums[i]);
+        }
+        int output =Integer.MAX_VALUE;
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            if(sum(nums,mid)<=threshold){
+                output=Math.min(output,mid);
+                end=mid-1;
+            }else{
+                start=mid+1;
+            }
+        }
+        return output;
+    }
+    public static int sum(int arr[],int div){
+            int sum=0;
+            for(int i=0;i<arr.length;i++){
+                sum+=Math.ceil((double)arr[i]/div);
+            }
+            return sum;
+    } 
 }
