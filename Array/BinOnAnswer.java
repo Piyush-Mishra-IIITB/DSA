@@ -194,4 +194,38 @@ class Solution {
             }
             return sum;
     } 
+}// leetcode-1011
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int start=0;
+        int end=0;
+        for (int i = 0; i < weights.length; i++) {
+            start = Math.max(start, weights[i]); 
+            end += weights[i];
+        }
+        int output=Integer.MAX_VALUE;
+        while(start<=end){
+            int mid=start+(end-start)/2;
+            if(weight(weights,mid)<=days){
+                 output=Math.min(output,mid);
+                   end=mid-1;
+            }else{
+                start=mid+1;
+            }
+        }
+        return output;
+    }
+    public static int weight(int arr[],int weight){
+         int day=1;
+         int sum=0;
+         for(int i=0;i<arr.length;i++){
+            if(sum+arr[i]<=weight){
+                sum+=arr[i];
+            }else{
+                day++;
+                sum=arr[i];
+            }
+         }
+         return day;
+    }
 }
