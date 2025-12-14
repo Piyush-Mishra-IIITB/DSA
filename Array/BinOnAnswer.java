@@ -26,3 +26,27 @@ public class BinOnAnswer {
 }
     
 }
+//nth root of integer 
+// use Math.pow()
+class Main {
+    public static int sqqrt(int n,int nth){
+        int start=1;
+        int end=n;
+        int ans=1;
+        while(start<end){
+            int mid=(start+end)/2;
+            if(Math.pow(mid,nth)<=n){
+                ans=mid;
+                start=mid+1;
+            }
+            else if(Math.pow(mid,nth)>n){
+                end=mid-1;
+            }
+            
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+        System.out.print(sqqrt(8,3));
+    }
+}
