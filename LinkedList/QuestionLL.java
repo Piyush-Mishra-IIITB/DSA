@@ -70,4 +70,37 @@ class Solution {
     }
     
 }
+// sort the linkedlist of 0,1,2 in 1 pass
+public static Node sort(Node head){
+    if(head==null || head.next==null){
+        return head;
+    }
+    Node oned=new Node(-1);
+    Node twod=new Node(-1);
+    Node zerod=new Node(-1);
+    Node one= oned;
+    Node two= twod;
+    Node zero= zerod;
+    Node temp=head;
+    while(temp!=null){
+        if(temp.data==0){
+            zero.next=temp;
+            zero=zero.next;
+        }
+        else if(temp.data==1){
+            one.next=temp;
+            one=one.next;
+        }
+        else{
+            two.next=temp;
+            two=two.next;
+        }
+        temp=temp.next;
+    }
+    two.next=null;
+    one.next = twod.next;
+    zero.next = oned.next != null ? oned.next : twod.next;
+
+    return zerod.next;
+}
 }
