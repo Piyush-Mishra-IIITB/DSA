@@ -229,26 +229,3 @@ class Solution {
          return day;
     }
 }
-// type 2 of Binary search on answer 
-// here we find min(max) or max(min)
-// Question-Aggressive cows 
-//min distance should be maximum
-
- 
-public static void main(int arr[],int cows){
-    int start=1;
-    int end=Integer.MIN_VALUE;
-    for(int i=0;i<arr.length;i++){
-        end=Math.max(arr[i],end);
-    }
-    for(i=start;i<end;i++){
-        if (possible(arr,i,cows)){
-           continue;
-        }
-        return i-1;
-        break;
-    }
-}
-public static boolean possible(int arr[],int k,int cows){
-    
-}
