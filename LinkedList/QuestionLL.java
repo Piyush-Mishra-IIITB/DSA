@@ -478,7 +478,7 @@ class Solution {
     // merge 2 linkedlist
 
 
- */class Solution {
+ class Solution {
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
@@ -513,6 +513,41 @@ class Solution {
         return arrayToLinkedList(arr);
     }
 
+    public static ListNode arrayToLinkedList(int[] arr) {
+        if (arr.length == 0) return null;
+
+        ListNode head = new ListNode(arr[0]);
+        ListNode curr = head;
+
+        for (int i = 1; i < arr.length; i++) {
+            curr.next = new ListNode(arr[i]);
+            curr = curr.next;
+        }
+        return head;
+    }
+}
+// sort the linkedlis brute force-leetcode 148
+
+ import java.util.*;
+class Solution {
+    public ListNode sortList(ListNode head) {
+        ListNode temp=head;
+        int counter=0;
+        while(temp!=null){
+            counter++;
+            temp=temp.next;
+        }
+        int arr[]=new int [counter];
+        int a=0;
+        ListNode temp1=head;
+        while(temp1!=null){
+            arr[a]=temp1.val;
+            temp1=temp1.next;
+            a++;
+        }
+        Arrays.sort(arr);
+        return arrayToLinkedList(arr);
+    }
     public static ListNode arrayToLinkedList(int[] arr) {
         if (arr.length == 0) return null;
 
