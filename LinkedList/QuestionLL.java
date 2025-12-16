@@ -319,3 +319,20 @@ class Solution {
         return slow;
     }
 }
+// detect a cycle -leetcode 141
+//hashmap approach
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        HashMap<ListNode,Integer> hm = new HashMap<>();
+        ListNode temp=head;
+        while(temp!=null){
+            if(hm.containsKey(temp)){
+                return true;
+            }
+            hm.put(temp,1);
+            temp=temp.next;
+        }
+        return false;
+    }
+}
