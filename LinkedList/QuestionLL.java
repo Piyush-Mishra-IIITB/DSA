@@ -353,7 +353,7 @@ public class Solution {
         return false;
     }
 }
-// finding starting point of cycle
+// finding starting point of cycle-leetcode 142
 public class Solution {
     public ListNode detectCycle(ListNode head) {
 
@@ -371,3 +371,24 @@ public class Solution {
         return null; 
     }
 }
+//deleting middle node usign slow fast pointer
+
+
+ class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+
+        if (head == null || head.next == null) {
+            return null;
+        }
+
+     ListNode prev=null;
+     ListNode slow=head;
+     ListNode fast=head:
+     while(fast!=null && fast.next!=null){
+        fast=fast.next.next;
+        prev=slow;
+        slow=slow.next;
+     }
+    slow.next=slow.next.next;
+      return head;
+    }}
