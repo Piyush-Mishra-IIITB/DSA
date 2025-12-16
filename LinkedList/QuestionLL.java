@@ -253,3 +253,47 @@ public static Node reverse(Node head){
     }
     return prev;
 }
+// intersection of 2 linkedlist leetcode-160
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode temp1=headA;
+        ListNode temp2=headB;
+        int c1=0;
+        int c2=0;
+        while(temp1 !=null){
+            c1++;
+            temp1=temp1.next;
+        }
+        while(temp2!=null){
+            c2++;
+            temp2=temp2.next;
+        }
+        if(c1<c2){
+            return collisionpt(headB,headA,c2-c1);
+        }else{
+            return collisionpt(headA,headB,c1-c2);
+        }
+    }
+    public static ListNode collisionpt(ListNode big,ListNode small,int distance){
+        while(distance!=0){
+            distance--;
+            big=big.next;
+        }
+        while(big!=small){
+            big=big.next;
+            small=small.next;
+        }
+        return big;
+    }
+}
