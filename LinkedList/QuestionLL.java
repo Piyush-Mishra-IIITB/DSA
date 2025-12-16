@@ -336,3 +336,20 @@ public class Solution {
         return false;
     }
 }
+// 2nd approach of detecting a cycle in LL (using slow fast pointer)
+
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow=head;
+        ListNode fast=head;
+        while(fast!=null && fast.next !=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if(slow==fast){
+                return true;
+            }
+        }
+        return false;
+    }
+}
