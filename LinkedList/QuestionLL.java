@@ -447,7 +447,7 @@ class Solution {
         return prev;
     }
 }
-// rotation by k of linkedlist
+// rotation by k of linkedlist-leetcode-61
 
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
@@ -475,3 +475,54 @@ class Solution {
         }
         return head;
     }}
+    // merge 2 linkedlist
+
+
+ */class Solution {
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        int c1 = 0, c2 = 0;
+        ListNode t1 = list1, t2 = list2;
+
+        while (t1 != null) {
+            c1++;
+            t1 = t1.next;
+        }
+        while (t2 != null) {
+            c2++;
+            t2 = t2.next;
+        }
+
+        int[] arr = new int[c1 + c2];
+        int idx = 0;
+
+        t1 = list1;
+        while (t1 != null) {
+            arr[idx++] = t1.val;
+            t1 = t1.next;
+        }
+
+        t2 = list2;
+        while (t2 != null) {
+            arr[idx++] = t2.val;
+            t2 = t2.next;
+        }
+        Arrays.sort(arr);
+
+        return arrayToLinkedList(arr);
+    }
+
+    public static ListNode arrayToLinkedList(int[] arr) {
+        if (arr.length == 0) return null;
+
+        ListNode head = new ListNode(arr[0]);
+        ListNode curr = head;
+
+        for (int i = 1; i < arr.length; i++) {
+            curr.next = new ListNode(arr[i]);
+            curr = curr.next;
+        }
+        return head;
+    }
+}
