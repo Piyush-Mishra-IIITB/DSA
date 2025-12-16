@@ -217,3 +217,39 @@ class Solution {
         return prev;
     }
 }
+// plus one to linkedlist -leetcode 369
+
+public static Node addOne(Node head){
+    int carry=1;
+    Node newHead=reverse(head);
+    Node temp=newHead;
+    while(temp!=null){
+        temp.data=temp.data+carry;
+        if(temp.data<10){
+            carry=0;
+            break;
+        }
+        temp.data=temp.data%10;
+        carry=1;
+        temp=temp.next;
+    }
+    if(carry==1){
+        Node car=new Node(1);
+        head=reverse(newHead);
+        car.next=head;
+        return car;
+    }
+    head=reverse(newHead);
+    return head;
+}
+public static Node reverse(Node head){
+    Node p=null;
+    Node temp=head;
+    while(temp!=null){
+        Node forward=temp.next;
+        temp.next=p;
+        prev=temp;
+        temp=forward;
+    }
+    return prev;
+}
