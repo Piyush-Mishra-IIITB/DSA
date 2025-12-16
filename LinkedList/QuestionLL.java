@@ -447,3 +447,31 @@ class Solution {
         return prev;
     }
 }
+// rotation by k of linkedlist
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null || head.next ==null){
+            return head;
+        }
+        ListNode tail=head;
+        int counter=1;
+        while(tail.next !=null){
+            counter++;
+            tail=tail.next;
+        }
+        k=k%counter;
+        tail.next=head;
+        ListNode newTail=find(head,counter-k-1);
+        head=newTail.next;
+        newTail.next=null;
+        return head;
+    
+    }
+    public static ListNode find(ListNode head,int k){
+        while(k!=0 && head !=null){
+            k--;
+            head=head.next;
+        }
+        return head;
+    }}
