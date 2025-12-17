@@ -665,3 +665,31 @@ class Solution {
         return dummy.next;
     }
 }
+// leetcode-82
+
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode curr=head;
+        ListNode dummy=new ListNode(-1);
+        ListNode temp=dummy;
+        while(curr!=null){
+            if(curr.next !=null &&curr.val==curr.next.val){
+                int dup=curr.val;
+                while(curr!=null && curr.val==dup){
+                    curr=curr.next;
+                }
+                temp.next=curr;
+            }
+                
+            else{ 
+                temp.next=curr;
+                temp=curr;
+                curr=curr.next;
+               }
+            }
+            return dummy.next;
+        }
+        
+    }
+
