@@ -17,8 +17,16 @@ public class Basic {
         print2(i-1,n);
         System.out.print(i);
     }
+    // 
+     public static int fact(int n){
+        if(n==1){
+            return 1;
+        }
+        return n*fact(n-1);
+    }
     public static void main(String Args[]){
         //print(0,5);
-        print2(5,5);
+        //print2(5,5);
+        fact(5);
     }
 }
