@@ -622,3 +622,25 @@ class Solution {
     }
 
 }
+// leetcode 138
+
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node temp=head;
+        HashMap <Node,Node> hm =new HashMap<>();
+        while(temp!=null){
+            Node newNode=new Node(temp.val);
+            hm.put(temp,newNode);
+            temp=temp.next;
+        }
+        temp=head;
+        while(temp!=null){
+            Node currNode=hm.get(temp);
+            currNode.next=hm.get(temp.next);
+            currNode.random=hm.get(temp.random);
+            temp=temp.next;
+        }
+        return hm.get(head);
+    }
+}
