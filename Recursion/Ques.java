@@ -161,3 +161,40 @@ class Solution {
         arr[b]=temp;
     }
 }
+// leetcode 47-all uniques permutations
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Arrays.sort(nums); 
+        permute(0, nums, ans);
+        return ans;
+    }
+
+    private static void permute(int index, int[] arr, List<List<Integer>> ans) {
+
+        if (index == arr.length) {
+            List<Integer> list = new ArrayList<>();
+            for (int num : arr) list.add(num);
+            ans.add(list);
+            return;
+        }
+
+        HashSet<Integer> used = new HashSet<>();
+
+        for (int i = index; i < arr.length; i++) {
+            if (used.contains(arr[i])) continue;
+
+            used.add(arr[i]);
+
+            swap(i, index, arr);
+            permute(index + 1, arr, ans);
+            swap(i, index, arr); 
+        }
+    }
+
+    private static void swap(int a, int b, int[] arr) {
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+}
