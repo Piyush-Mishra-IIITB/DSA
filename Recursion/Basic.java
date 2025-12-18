@@ -34,6 +34,12 @@ public class Basic {
         int temp=arr[a];
        arr[a]=arr[b];
         arr[b]=temp;
+    } 
+    public static int fibonacci(int n){
+        if(n==0||n==1){
+            return n;
+        }
+        return fibonacci(n-1)+fibonacci(n-2);
     }
     public static void main(String Args[]){
         //print(0,5);
@@ -42,7 +48,7 @@ public class Basic {
        // int arr[]={1,2,3,4,5};
        // reverse(0,4,arr);
         //for(int i=0;i<arr.length;i++){
-         //   System.out.print(arr[i]);
+          // System.out.print(fibonacci(10));
        // }
     }
 }
