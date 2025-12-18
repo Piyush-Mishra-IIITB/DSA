@@ -132,3 +132,32 @@ class Solution {
         }
     }
 }
+// swap method of finding all permutations
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        Arrays.sort(nums);
+        permute(0,nums,ans);
+        return ans;
+    }
+    public static void permute(int index,int arr[],List<List<Integer>> ans){
+        if(index==arr.length){
+            List<Integer> list=new ArrayList<>();
+            for(int i=0;i<arr.length;i++){
+                list.add(arr[i]);
+            }
+         ans.add(new ArrayList<>(list));
+         return;
+        }
+        for(int i=index;i<arr.length;i++){
+            swap(i,index,arr);
+            permute(index+1,arr,ans);
+            swap(i, index, arr);
+        }
+    }
+    public static void swap(int a,int b,int arr[]){
+        int temp=arr[a];
+        arr[a]=arr[b];
+        arr[b]=temp;
+    }
+}
