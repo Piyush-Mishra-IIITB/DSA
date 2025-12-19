@@ -134,3 +134,23 @@ class Solution {
         return (out==Integer.MAX_VALUE)? 0:out;
     }
     }
+// leetcode 643
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int low=0;
+        int high=k-1;
+        int sum=0;
+        for(int i=low;i<=high;i++){
+            sum=sum+nums[i];
+        }
+        double maxSum=sum;
+        while(high+1 <nums.length){
+            sum=sum-nums[low];
+            low++;
+            high++;
+            sum=sum+nums[high];
+            maxSum=Math.max(sum,maxSum);
+        }
+     return maxSum/k;
+    }
+}
