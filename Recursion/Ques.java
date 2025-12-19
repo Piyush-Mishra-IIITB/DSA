@@ -355,3 +355,38 @@ class Solution {
         return true;
     }
 }
+// leetcode -36
+//validating sudoko
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        return solve(board);
+    }
+    public static boolean solve(char[][] arr){
+        for(int i=0;i<arr.length;i++){
+             for(int j=0;j<arr[0].length;j++){
+                if(arr[i][j]== '.'){
+                   continue;
+                }
+                char c=arr[i][j];
+                arr[i][j]='.';
+                if(isValid(arr,i,j,c)==false){
+                   return false;
+                }
+                arr[i][j]=c;
+             }
+        }
+        return true;
+    }
+    public static boolean isValid(char[][] board,int row,int col,int c){
+        for (int i = 0; i < 9; i++) {
+
+            if (board[i][col] == c) return false;
+            if (board[row][i] == c) return false;
+
+            if (board[3*(row/3) + i/3][3*(col/3) + i%3] == c)
+                return false;
+        }
+        return true;
+    
+    }
+}
