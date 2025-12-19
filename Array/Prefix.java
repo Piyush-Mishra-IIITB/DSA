@@ -80,8 +80,7 @@ class Solution {
         return result;
     }
 }
-// leetcode-525
-class Solution {
+// leetcode 525class Solution {
     public int findMaxLength(int[] arr) {
         int one=0;
         int zero=0;
@@ -110,5 +109,27 @@ class Solution {
             
         }
         return result;
+    }
+}
+// leetcode-560 class Solution {
+    public int subarraySum(int[] nums, int k) {
+
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);  
+
+        int sum = 0;
+        int count = 0;
+
+        for (int num : nums) {
+            sum += num;
+
+            if (map.containsKey(sum - k)) {
+                count += map.get(sum - k);
+            }
+
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
     }
 }
