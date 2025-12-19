@@ -115,3 +115,22 @@ class Solution {
 
     }
 }
+// variable sliding window
+// leetcode-209
+class Solution {
+    public int minSubArrayLen(int target, int[] arr) {
+        int i=0;
+        int sum=0;
+        int out=Integer.MAX_VALUE;
+        for(int j=0;j<arr.length;j++){
+            sum=sum+arr[j];
+            while(sum>=target){
+                sum=sum-arr[i];
+                int length=j-i+1;
+                out=Math.min(out,length);
+                i++;
+            }
+        }
+        return (out==Integer.MAX_VALUE)? 0:out;
+    }
+    }
