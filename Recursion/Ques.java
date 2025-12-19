@@ -256,3 +256,102 @@ class Solution {
         return res;
     }
 }
+// n queens -2
+class Solution {
+    public int totalNQueens(int n){
+        List<List<String>> ans = new ArrayList<>();
+        char[][] board = new char[n][n];
+
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(board[i], '.');
+        }
+
+        solve(0, n, board, ans);
+        return ans.size();
+    }
+
+    private void solve(int col, int n, char[][] board, List<List<String>> ans) {
+        if (col == n) {
+            ans.add(construct(board, n));
+            return;
+        }
+
+        for (int row = 0; row < n; row++) {
+            if (isSafe(row, col, board, n)) {
+                board[row][col] = 'Q';
+                solve(col + 1, n, board, ans);
+                board[row][col] = '.';
+            }
+        }
+    }
+
+    private boolean isSafe(int row, int col, char[][] board, int n) {
+        int r = row, c = col;
+
+        while (r >= 0 && c >= 0) {
+            if (board[r][c] == 'Q') return false;
+            r--; c--;
+        }
+        r = row; c = col;
+        while (c >= 0) {
+            if (board[r][c] == 'Q') return false;
+            c--;
+        }
+        r = row; c = col;
+        while (r < n && c >= 0) {
+            if (board[r][c] == 'Q') return false;
+            r++; c--;
+        }
+
+        return true;
+    }
+
+    private List<String> construct(char[][] board, int n) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            res.add(new String(board[i]));
+        }
+        return res;
+    }
+}
+// leetcode 37-sudoko solver
+class Solution {
+
+    public void solveSudoku(char[][] board) {
+        solver(board);
+    }
+
+    private boolean solver(char[][] board) {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+
+                if (board[row][col] == '.') {
+                    for (char c = '1'; c <= '9'; c++) {
+
+                        if (isValid(board, row, col, c)) {
+                            board[row][col] = c;
+
+                            if (solver(board)) return true;
+
+                            board[row][col] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isValid(char[][] board, int row, int col, char c) {
+        for (int i = 0; i < 9; i++) {
+
+            if (board[i][col] == c) return false;
+            if (board[row][i] == c) return false;
+
+            if (board[3*(row/3) + i/3][3*(col/3) + i%3] == c)
+                return false;
+        }
+        return true;
+    }
+}
