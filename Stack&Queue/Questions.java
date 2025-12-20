@@ -69,3 +69,29 @@ class MyQueue {
         }
     }
 }
+// valid parentheses-leetcode:20
+
+class Solution {
+    public boolean isValid(String s) {
+        int size=s.length();
+        Stack<Character> ss=new Stack<>();
+        for(int i=0;i<size;i++){
+            char c=s.charAt(i);
+            if(c=='(' || c=='{'|| c=='['){
+               ss.push(c);
+            }
+            
+            else{
+                if(ss.isEmpty()){return false;}
+                char d=ss.pop();
+                if(c==')' && d !='('){
+                    return false;
+                }if(c=='}' && d !='{'){
+                    return false;
+                }if(c==']' && d !='['){
+                    return false;
+                }
+            }
+    }
+    return ss.isEmpty();
+}}
