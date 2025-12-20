@@ -95,3 +95,42 @@ class Solution {
     }
     return ss.isEmpty();
 }}
+// leetcode 155
+class Pair {
+    int val;
+    int min;
+
+    Pair(int val, int min) {
+        this.val = val;
+        this.min = min;
+    }
+}
+
+class MinStack {
+
+    Stack<Pair> ss;
+
+    public MinStack() {
+        ss = new Stack<>();
+    }
+    
+    public void push(int val) {
+        if (ss.isEmpty()) {
+            ss.push(new Pair(val, val));
+        } else {
+            ss.push(new Pair(val, Math.min(val, ss.peek().min)));
+        }
+    }
+    
+    public void pop() {
+        ss.pop();
+    }
+    
+    public int top() {
+        return ss.peek().val;
+    }
+    
+    public int getMin() {
+        return ss.peek().min;
+    }
+}
