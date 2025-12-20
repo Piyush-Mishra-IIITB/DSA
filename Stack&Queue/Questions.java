@@ -208,3 +208,26 @@ class Solution {
         return ans;
     }
 }
+// left smaller element-incr monotonic stack
+import java.util.*;
+class Main {
+    public static int[] leftSmaller(int arr[]){
+        int ans[]=new int[arr.length];
+        Stack<Integer> ss=new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            while(!ss.isEmpty() && ss.peek()>=arr[i]){
+                ss.pop();
+            }
+            ans[i]=ss.isEmpty()?-1:ss.peek();
+            ss.push(arr[i]);
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+        int arr[]={1,2,8,2,4};
+        int arr2[]=leftSmaller(arr);
+       for(int i=0;i<arr.length;i++){
+           System.out.print(arr2[i]);
+       }
+    }
+}
