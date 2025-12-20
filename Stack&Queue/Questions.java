@@ -185,4 +185,26 @@ class Solution {
         return ans;
     }
 }
-
+// leetcode -503
+//next greater element 2
+class Solution {
+    public int[] nextGreaterElements(int[] arr) {
+        int ans[]=new int[arr.length];
+        Stack<Integer> ss=new Stack<>();
+        for(int i=2*arr.length-1;i>=0;i--){
+            while(!ss.isEmpty() && ss.peek()<=arr[i%arr.length]){
+                ss.pop();
+            }
+            if(i<arr.length){
+                if(ss.isEmpty()){
+                    ans[i]=-1;
+                }
+                else{
+                    ans[i]=ss.peek();
+                }
+            }
+            ss.push(arr[i%arr.length]);
+        }
+        return ans;
+    }
+}
