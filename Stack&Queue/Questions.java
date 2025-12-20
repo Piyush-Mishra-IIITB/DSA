@@ -231,3 +231,25 @@ class Main {
        }
     }
 }
+// traping rain water
+class Solution {
+    public int trap(int[] arr) {
+        int total=0;
+        int prefix[]=new int[arr.length];
+        int suffix[]=new int [arr.length];
+        prefix[0]=arr[0];
+        suffix[arr.length-1]=arr[arr.length-1];
+        for(int i=1;i<arr.length;i++){
+            prefix[i]=Math.max(prefix[i-1],arr[i]);
+        }
+        for(int i=arr.length-2;i>=0;i--){
+            suffix[i]=Math.max(suffix[i+1],arr[i]);
+        }
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<prefix[i] && arr[i]<suffix[i]){
+                total +=Math.min(prefix[i],suffix[i])-arr[i];
+            }
+        }
+        return total;
+    }
+}
