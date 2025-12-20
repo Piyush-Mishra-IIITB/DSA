@@ -32,3 +32,40 @@ class MyStack {
         return qq.isEmpty();
     }
 }
+// stack using 2 queue
+class MyQueue {
+
+    Stack<Integer> in;
+    Stack<Integer> out;
+
+    public MyQueue() {
+        in = new Stack<>();
+        out = new Stack<>();
+    }
+    
+    public void push(int x) {
+        in.push(x);
+    }
+    
+    public int pop() {
+        moveIfNeeded();
+        return out.pop();
+    }
+    
+    public int peek() {
+        moveIfNeeded();
+        return out.peek();
+    }
+    
+    public boolean empty() {
+        return in.isEmpty() && out.isEmpty();
+    }
+
+    private void moveIfNeeded() {
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.pop());
+            }
+        }
+    }
+}
