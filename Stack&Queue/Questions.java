@@ -296,3 +296,86 @@ class Solution {
         return (int)(sum % mod);
     }
 }
+// leetcode -2104 sum of subarray ranges
+// sum of subarray max-sum of subarray min
+class Solution {
+    public long subArrayRanges(int[] nums) {
+        return (sumSubarrayMaxs(nums)-sumSubarrayMins(nums));
+    }
+    public long sumSubarrayMaxs(int[] arr) {
+        long sum=0;
+        int prevSmaller[]=new int [arr.length];
+        int nextSmaller[]= new int[arr.length]; 
+        Stack<Integer> ss=new Stack<>();
+        Stack<Integer>sss=new Stack<>();
+        for(int i=0;i<arr.length;i++){
+               while(!ss.isEmpty() && arr[i]>arr[ss.peek()]){
+                ss.pop();
+               }
+               if(ss.isEmpty()){
+                prevSmaller[i]=-1;
+               }
+               else{
+                prevSmaller[i]=ss.peek();
+               }
+               ss.push(i);
+        }
+        for(int i=arr.length-1;i>=0;i--){
+               while(!sss.isEmpty() && arr[i]>=arr[sss.peek()]){
+                sss.pop();
+               }
+               if(sss.isEmpty()){
+                nextSmaller[i]=arr.length;
+               }
+               else{
+                nextSmaller[i]=sss.peek();
+               }
+               sss.push(i);
+        }
+        for(int i=0;i<arr.length;i++){
+             int prevIndex=prevSmaller[i];
+             int nextIndex=nextSmaller[i];
+             long length=(i-prevIndex)*(nextIndex-i);
+             sum +=(length*arr[i]);
+        }
+        return (sum);
+    }
+    public long sumSubarrayMins(int arr[]){
+        long sum=0;
+        int prevSmaller[]=new int [arr.length];
+        int nextSmaller[]= new int[arr.length]; 
+        Stack<Integer> ss=new Stack<>();
+        Stack<Integer>sss=new Stack<>();
+        for(int i=0;i<arr.length;i++){
+               while(!ss.isEmpty() && arr[i]<arr[ss.peek()]){
+                ss.pop();
+               }
+               if(ss.isEmpty()){
+                prevSmaller[i]=-1;
+               }
+               else{
+                prevSmaller[i]=ss.peek();
+               }
+               ss.push(i);
+        }
+        for(int i=arr.length-1;i>=0;i--){
+               while(!sss.isEmpty() && arr[i]<=arr[sss.peek()]){
+                sss.pop();
+               }
+               if(sss.isEmpty()){
+                nextSmaller[i]=arr.length;
+               }
+               else{
+                nextSmaller[i]=sss.peek();
+               }
+               sss.push(i);
+        }
+        for(int i=0;i<arr.length;i++){
+             int prevIndex=prevSmaller[i];
+             int nextIndex=nextSmaller[i];
+             long length=(i-prevIndex)*(nextIndex-i);
+             sum +=(length*arr[i]);
+        }
+        return (sum);
+    }
+}
