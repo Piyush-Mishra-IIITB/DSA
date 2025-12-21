@@ -489,3 +489,69 @@ class Solution {
         return result.length() == 0 ? "0" : result;
     }
 }
+// leetcode-85
+// maximal rectangle
+class Solution {
+
+    public int maximalRectangle(char[][] arr) {
+        if (arr == null || arr.length == 0) return 0;
+
+        int rows = arr.length;
+        int cols = arr[0].length;
+
+        int[] height = new int[cols];
+        int output = 0;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (arr[i][j] == '1') {
+                    height[j] += 1;
+                } else {
+                    height[j] = 0;
+                }
+            }
+            output = Math.max(output, largestRectangleArea(height));
+        }
+
+        return output;
+    }
+
+    public int largestRectangleArea(int[] arr) {
+        int[] pse = leftSmaller(arr);
+        int[] nse = rightSmaller(arr);
+        int total = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            total = Math.max(total, (nse[i] - pse[i] - 1) * arr[i]);
+        }
+        return total;
+    }
+
+    public static int[] leftSmaller(int[] arr) {
+        Stack<Integer> ss = new Stack<>();
+        int[] ans = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            while (!ss.isEmpty() && arr[ss.peek()] >= arr[i]) {
+                ss.pop();
+            }
+            ans[i] = ss.isEmpty() ? -1 : ss.peek();
+            ss.push(i);
+        }
+        return ans;
+    }
+
+    public static int[] rightSmaller(int[] arr) {
+        Stack<Integer> ss1 = new Stack<>();
+        int[] ans2 = new int[arr.length];
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!ss1.isEmpty() && arr[ss1.peek()] >= arr[i]) {
+                ss1.pop();
+            }
+            ans2[i] = ss1.isEmpty() ? arr.length : ss1.peek();
+            ss1.push(i);
+        }
+        return ans2;
+    }
+}
