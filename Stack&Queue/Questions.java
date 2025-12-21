@@ -459,3 +459,33 @@ class Solution {
         return ans2;
     }
 }
+// leetcode-402
+//remove k digit
+class Solution {
+    public String removeKdigits(String s, int k) {
+        Stack<Character> ss = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            while (!ss.isEmpty() && k > 0 && ss.peek() > c) {
+                ss.pop();
+                k--;
+            }
+            ss.push(c);
+        }
+        while (k > 0 && !ss.isEmpty()) {
+            ss.pop();
+            k--;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!ss.isEmpty()) {
+            sb.append(ss.pop());
+        }
+        sb.reverse();
+        int idx = 0;
+        while (idx < sb.length() && sb.charAt(idx) == '0') {
+            idx++;
+        }
+        String result = sb.substring(idx);
+        return result.length() == 0 ? "0" : result;
+    }
+}
