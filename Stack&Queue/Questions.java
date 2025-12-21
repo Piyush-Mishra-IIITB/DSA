@@ -379,3 +379,39 @@ class Solution {
         return (sum);
     }
 }
+// asteroid collision -leetcode 735
+ class Solution {
+    public int[] asteroidCollision(int[] arr) {
+        Stack<Integer> ss = new Stack<>();
+       for(int i=0;i<arr.length;i++){
+          if(arr[i]>0){
+            ss.push(arr[i]);
+          }else{
+            int curr=arr[i];
+            boolean distroy=false;
+            while(!ss.isEmpty() && ss.peek()>0){
+                if(ss.peek()<Math.abs(curr)){
+                    ss.pop();
+                }
+                else if(ss.peek()==Math.abs(curr)){
+                    ss.pop();
+                    distroy=true;
+                    break;
+                }else{
+                    distroy=true;
+                    break;
+                }
+            }
+            if(!distroy){
+                ss.push(arr[i]);
+            }
+          }
+       }
+       int ans[]=new int[ss.size()];
+        for(int i=ss.size()-1;i>=0;i--){
+             ans[i]=ss.peek();
+             ss.pop();
+         }
+         return ans;
+    }
+}
