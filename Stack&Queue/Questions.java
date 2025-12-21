@@ -415,3 +415,47 @@ class Solution {
          return ans;
     }
 }
+// finding largest rectangle using nextSmaller and prevSmaller
+// leetcode 84
+class Solution {
+    public int largestRectangleArea(int[] arr) {
+        int pse[]=leftSmaller(arr);
+        int nse[]=rightSmaller(arr);
+        int total=0;
+        for(int i=0;i<arr.length;i++){
+             total=Math.max(total,(nse[i]-pse[i]-1)*arr[i]);
+        }
+        return total;
+    }
+    public static int[] leftSmaller(int arr[]){
+        Stack<Integer> ss=new Stack<>();
+        int ans[]=new int[arr.length];
+        for(int i=0;i<arr.length;i++){
+            while(!ss.isEmpty() && arr[ss.peek()]>=arr[i]){
+                ss.pop();
+            }
+            if(ss.isEmpty()){
+                ans[i]=-1;
+            }else{
+                ans[i]=ss.peek();
+            }
+            ss.push(i);
+        }
+        return ans;
+    }public static int[] rightSmaller(int arr[]){
+        Stack<Integer> ss1=new Stack<>();
+        int ans2[]=new int[arr.length];
+        for(int i=arr.length-1;i>=0;i--){
+            while(!ss1.isEmpty() && arr[ss1.peek()]>=arr[i]){
+                ss1.pop();
+            }
+            if(ss1.isEmpty()){
+                ans2[i]=arr.length;
+            }else{
+                ans2[i]=ss1.peek();
+            }
+            ss1.push(i);
+        }
+        return ans2;
+    }
+}
