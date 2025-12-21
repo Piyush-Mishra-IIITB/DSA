@@ -253,3 +253,46 @@ class Solution {
         return total;
     }
 }
+// leetcode 907-sum of subarray Minimums
+//find the sum of min of all subarray
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        long sum=0;
+        int prevSmaller[]=new int [arr.length];
+        int nextSmaller[]= new int[arr.length]; 
+        Stack<Integer> ss=new Stack<>();
+        Stack<Integer>sss=new Stack<>();
+        long mod = 1_000_000_007;
+        for(int i=0;i<arr.length;i++){
+               while(!ss.isEmpty() && arr[i]<arr[ss.peek()]){
+                ss.pop();
+               }
+               if(ss.isEmpty()){
+                prevSmaller[i]=-1;
+               }
+               else{
+                prevSmaller[i]=ss.peek();
+               }
+               ss.push(i);
+        }
+        for(int i=arr.length-1;i>=0;i--){
+               while(!sss.isEmpty() && arr[i]<=arr[sss.peek()]){
+                sss.pop();
+               }
+               if(sss.isEmpty()){
+                nextSmaller[i]=arr.length;
+               }
+               else{
+                nextSmaller[i]=sss.peek();
+               }
+               sss.push(i);
+        }
+        for(int i=0;i<arr.length;i++){
+             int prevIndex=prevSmaller[i];
+             int nextIndex=nextSmaller[i];
+             long length=(i-prevIndex)%mod*(nextIndex-i)%mod;
+             sum +=(length*arr[i])%mod;
+        }
+        return (int)(sum % mod);
+    }
+}
