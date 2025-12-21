@@ -555,3 +555,21 @@ class Solution {
         return ans2;
     }
 }
+// brute force for sliding window maximum leetcode-239
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+
+        int n = nums.length;
+        int[] result = new int[n - k + 1];
+        int index=0;
+        for(int i=0;i<n-k+1;i++){
+            int max=nums[i];
+            for(int j=i;j<=i+k-1;j++){
+                max=Math.max(nums[j],max);
+            }
+            result[index]=max;
+            index++;
+        }
+        return result;
+    }
+}
