@@ -5,7 +5,6 @@ public class Question {
 }
 // level order -leetcode-102
 
- */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result=new ArrayList<>();
@@ -29,5 +28,23 @@ class Solution {
                 result.add(bw);
         }
         return result;
+    }
+}
+// post order-leetcode-145
+
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> ll=new ArrayList<>();
+        helper(root,ll);
+        return ll;
+        
+    }
+    public static void helper(TreeNode root,List<Integer> ll){
+        if(root==null){
+            return;
+        }
+        helper(root.left,ll);
+        helper(root.right,ll);
+        ll.add(root.val);
     }
 }
