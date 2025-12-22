@@ -163,3 +163,22 @@ class Solution {
         return Math.max(lh,rh)+1;
     }
 }
+// leetcode -124
+//max path sum
+
+class Solution {
+    int maxSum=Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return maxSum;
+    }
+    public int helper(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int leftsum=Math.max(0,helper(root.left));
+        int rightsum=Math.max(0,helper(root.right));
+        maxSum=Math.max(leftsum+rightsum+root.val,maxSum);
+        return Math.max(leftsum,rightsum)+root.val;
+    }
+}
