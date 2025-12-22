@@ -65,7 +65,8 @@ class Solution {
         helper(root.left,ll);
         helper(root.right,ll);
     }
-}// max depth of BT
+}
+// max depth of BT
 
 class Solution {
     public int maxDepth(TreeNode root) {
@@ -75,5 +76,17 @@ class Solution {
         int lh=maxDepth(root.left);
         int rh=maxDepth(root.right);
         return Math.max(lh,rh)+1;
+    }
+}
+// count no of nodes-leetcode 222
+
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int lc=countNodes(root.left);
+        int rc=countNodes(root.right);
+        return lc+rc+1;
     }
 }
