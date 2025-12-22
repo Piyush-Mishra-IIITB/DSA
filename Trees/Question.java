@@ -207,3 +207,36 @@ class Solution {
         return true;
     }
 }
+// Zig-Zag level order traversal-leetcode 103
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans=new ArrayList<>();
+        if(root==null){
+            return ans;
+        }
+        Queue<TreeNode> qq=new LinkedList<>();
+        qq.add(root);
+        boolean LeftToRight=true;
+        while(!qq.isEmpty()){
+            int size=qq.size();
+            List<Integer> ll=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                TreeNode curr=qq.poll();
+                if(LeftToRight){ll.add(curr.val);}
+                else{
+                    ll.add(0,curr.val);
+                }
+                if(curr.left!=null){
+                    qq.add(curr.left);
+                }
+                if(curr.right!=null){
+                    qq.add(curr.right);
+                }
+            }
+            ans.add(ll);
+            LeftToRight=!LeftToRight;
+        }
+    return ans;
+    }
+}
