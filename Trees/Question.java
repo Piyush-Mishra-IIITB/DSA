@@ -90,3 +90,34 @@ class Solution {
         return lc+rc+1;
     }
 }
+// brute force for check balance bt
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+      int lh=height(root.left);
+      int rh=height(root.right);
+        if(lh-rh>1){
+            return false;
+        }
+        if(rh-lh>1){
+            return false;
+        }
+        boolean left=isBalanced(root.left);
+        boolean right=isBalanced(root.right);
+        if(! left || ! right){
+            return false;
+        }
+        return true;
+    }
+    public static int height(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int lh=height(root.left);
+        int rh=height(root.right);
+        return Math.max(lh,rh)+1;
+    }
+}
