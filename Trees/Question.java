@@ -392,3 +392,26 @@ class Solution {
         return list;
     }
 }
+// right view of BT
+
+class Solution {
+    
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer>list=new ArrayList<>();
+        if(root==null){
+            return list;
+        }
+        helper(list,root,0);
+        return list;
+    }
+    public static void helper(List<Integer>list,TreeNode root,int level){
+        if(root==null){
+            return;
+        }
+        if(level==list.size()){
+            list.add(root.val);
+        }
+        helper(list,root.right,level+1);
+        helper(list,root.left,level+1);
+    }
+}
