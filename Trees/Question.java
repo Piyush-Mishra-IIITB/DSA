@@ -348,3 +348,47 @@ class Solution {
         return ans;
     }
 }
+// bottom view of Binary tree
+
+
+class Solution {
+    class pair{
+        Node node;
+        int hr;
+        pair(Node node,int hr){
+            this.node=node;
+            this.hr=hr;
+        }
+    }
+    public List<Integer> bottomView(Node root) {
+        List<Integer>list=new ArrayList<>();
+        if(root==null){
+            return list;
+        }
+        Queue<pair>qq=new LinkedList<>();
+        HashMap<Integer,Node>hm=new HashMap<>();
+        qq.add(new pair(root,0));
+        int min=0;
+        int max=0;
+        while(!qq.isEmpty()){
+            pair p=qq.poll();
+            Node n=p.node;
+            int hr=p.hr;
+            
+            hm.put(hr,n);
+            
+            if(n.left!=null){
+                qq.add(new pair(n.left,hr-1));
+                min=Math.min(min,hr-1);
+            }
+            if(n.right!=null){
+                qq.add(new pair(n.right,hr+1));
+                max=Math.max(max,hr+1);
+            }
+        }
+        for(int i=min;i<=max;i++){
+            list.add(hm.get(i).data);
+        }
+        return list;
+    }
+}
