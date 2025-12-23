@@ -415,3 +415,33 @@ class Solution {
         helper(list,root.left,level+1);
     }
 }
+// leetcode 101
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+        return helper(root.left,root.right);
+    }
+    public static boolean helper(TreeNode a,TreeNode b){
+        if(a==null && b!=null){
+            return false;
+        }
+        if(a==null && b==null){
+            return true;
+        }
+        if(a!=null && b==null){
+            return false;
+        }
+        if(a.val!=b.val){
+            return false;
+        }
+        boolean left=helper(a.left,b.right);
+        boolean right=helper(a.right,b.left);
+        if(! left || !right){
+            return false;
+        }
+        return true;
+    }
+}
