@@ -498,3 +498,50 @@ class Solution {
       
     }
 }
+// max width of bt-leetcode=662
+
+ */
+class Solution {
+    class pair{
+       TreeNode node;
+       int index;
+       pair(TreeNode node,int index){
+        this.node=node;
+        this.index=index;
+       }
+    }
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        Queue<pair>qq=new LinkedList<>();
+        qq.add(new pair(root,0));
+        int maxwidth=0;
+        while(!qq.isEmpty()){
+            int size=qq.size();
+            int minIndex=qq.peek().index;
+            int first=0;
+            int last=0;
+            for(int i=0;i<size;i++){
+                pair p=qq.poll();
+                TreeNode curr=p.node;
+                int currIndex=p.index-minIndex;
+                if(i==0){
+                    first=currIndex;
+                }
+                if(i==size-1){
+                    last=currIndex;
+                }
+                if(curr.left !=null){
+                    qq.add(new pair(curr.left,2*currIndex+1));
+                }
+                if(curr.right !=null){
+                    qq.add(new pair(curr.right,2*currIndex+2));
+                }
+           
+            }
+            maxwidth=Math.max(maxwidth,last-first+1);
+        }
+        return maxwidth;
+    }
+}
