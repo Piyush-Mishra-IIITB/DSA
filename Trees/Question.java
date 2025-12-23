@@ -445,3 +445,35 @@ class Solution {
         return true;
     }
 }
+//Root to any Node path
+class Solution {
+    public boolean getPath(TreeNode root, List<Integer> arr, int x) {
+        if (root == null) {
+            return false;
+        }
+
+        arr.add(root.val);
+
+        if (root.val == x) {
+            return true;
+        }
+
+        if (getPath(root.left, arr, x) || getPath(root.right, arr, x)) {
+            return true;
+        }
+
+        arr.remove(arr.size() - 1);
+        return false;
+    }
+
+    public List<Integer> solve(TreeNode root, int x) {
+        List<Integer> arr = new ArrayList<>();
+
+        if (root == null) {
+            return arr;
+        }
+
+        getPath(root, arr, x);
+        return arr;
+    }
+}
