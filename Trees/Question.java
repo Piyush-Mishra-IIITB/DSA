@@ -299,3 +299,52 @@ public class Solution {
         return res;
     }
 }
+// top view of binary tree
+class Solution {
+
+    static class Pair {
+        Node node;
+        int hd;
+
+        Pair(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    public List<Integer> topView(Node root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) return ans;
+
+        Queue<Pair> q = new LinkedList<>();
+        HashMap<Integer, Node> map = new HashMap<>();
+
+        int min = 0, max = 0;
+
+        q.offer(new Pair(root, 0));
+
+        while (!q.isEmpty()) {
+            Pair p = q.poll();
+            Node curr = p.node;
+            int hd = p.hd;
+            if (!map.containsKey(hd)) {
+                map.put(hd, curr);
+            }
+
+            if (curr.left != null) {
+                q.offer(new Pair(curr.left, hd - 1));
+                min = Math.min(min, hd - 1);
+            }
+
+            if (curr.right != null) {
+                q.offer(new Pair(curr.right, hd + 1));
+                max = Math.max(max, hd + 1);
+            }
+        }
+        for (int i = min; i <= max; i++) {
+            ans.add(map.get(i).data);
+        }
+
+        return ans;
+    }
+}
