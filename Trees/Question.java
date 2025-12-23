@@ -614,3 +614,65 @@ class Solution {
         return ans;
     }
 }
+//min time taken too burn a BT from a Node
+class Solution {
+
+    public static void markParent(TreeNode root, HashMap<TreeNode, TreeNode> parent) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
+
+            if (curr.left != null) {
+                parent.put(curr.left, curr);
+                q.add(curr.left);
+            }
+            if (curr.right != null) {
+                parent.put(curr.right, curr);
+                q.add(curr.right);
+            }
+        }
+    }
+
+    public int distanceK(TreeNode root, TreeNode target) {
+        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
+        markParent(root, parent);
+
+        Queue<TreeNode> q = new LinkedList<>();
+        HashMap<TreeNode, Boolean> vis = new HashMap<>();
+
+        q.add(target);
+        vis.put(target, true);
+
+        int distance = -1;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            distance++;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = q.poll();
+
+                if (curr.left != null && !vis.containsKey(curr.left)) {
+                    vis.put(curr.left, true);
+                    q.add(curr.left);
+                }
+
+                if (curr.right != null && !vis.containsKey(curr.right)) {
+                    vis.put(curr.right, true);
+                    q.add(curr.right);
+                }
+
+                TreeNode par = parent.get(curr);
+                if (par != null && !vis.containsKey(par)) {
+                    vis.put(par, true);
+                    q.add(par);
+                }
+            }
+        }
+
+        return distance;
+    }
+}
+
