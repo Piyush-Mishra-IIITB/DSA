@@ -545,3 +545,72 @@ class Solution {
         return maxwidth;
     }
 }
+// leetcode 863
+//Nodes At K Distance
+
+ */class Solution {
+    public static void markParent(TreeNode root, HashMap<TreeNode, TreeNode> hm) {
+        Queue<TreeNode> qq = new LinkedList<>();
+        qq.add(root);
+
+        while (!qq.isEmpty()) {
+            TreeNode curr = qq.poll();
+
+            if (curr.left != null) {
+                hm.put(curr.left, curr);
+                qq.add(curr.left);
+            }
+            if (curr.right != null) {
+                hm.put(curr.right, curr);
+                qq.add(curr.right);
+            }
+        }
+    }
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
+        markParent(root, parent);
+
+        Queue<TreeNode> qq = new LinkedList<>();
+        HashMap<TreeNode, Boolean> vis = new HashMap<>();
+
+        qq.add(target);
+        vis.put(target, true); 
+
+        int currdis = 0;
+
+        while (!qq.isEmpty()) {
+            int size = qq.size();
+            if (currdis == k) break;
+
+            currdis++;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = qq.poll();
+
+                if (curr.left != null && !vis.containsKey(curr.left)) {
+                    vis.put(curr.left, true);
+                    qq.add(curr.left);
+                }
+
+                if (curr.right != null && !vis.containsKey(curr.right)) {
+                    vis.put(curr.right, true);
+                    qq.add(curr.right);
+                }
+
+                TreeNode par = parent.get(curr);
+                if (par != null && !vis.containsKey(par)) {
+                    vis.put(par, true);
+                    qq.add(par);
+                }
+            }
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        while (!qq.isEmpty()) {
+            ans.add(qq.poll().val);
+        }
+
+        return ans;
+    }
+}
