@@ -85,3 +85,55 @@ class Solution {
         return root;
     }
 }
+// delete a node,there are 2 ways of deleting
+// leetcode-450
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.val == key) {
+            return helper(root);
+        }
+
+        TreeNode curr = root;
+
+        while (curr != null) {
+            if (key < curr.val) {
+                if (curr.left != null && curr.left.val == key) {
+                    curr.left = helper(curr.left);
+                    break;
+                } else {
+                    curr = curr.left;
+                }
+            } else {
+                if (curr.right != null && curr.right.val == key) {
+                    curr.right = helper(curr.right);
+                    break;
+                } else {
+                    curr = curr.right;
+                }
+            }
+        }
+        return root;
+    }
+
+    private TreeNode helper(TreeNode node) {
+        if (node.left == null) return node.right;
+        if (node.right == null) return node.left;
+
+        TreeNode rightChild = node.right;
+        TreeNode rightMostLeft = findRightMost(node.left);
+        rightMostLeft.right = rightChild;
+
+        return node.left;
+    }
+
+    private TreeNode findRightMost(TreeNode node) {
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+}
