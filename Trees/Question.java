@@ -735,3 +735,56 @@ class Solution {
         return root;
     }
 }
+
+//serialise and desrialise
+public class Codec {
+
+  public String serialize(TreeNode root) {
+    if (root == null) return "n";
+
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    StringBuilder sb = new StringBuilder();
+
+    while (!q.isEmpty()) {
+        TreeNode curr = q.poll();
+        if (curr == null) {
+            sb.append("n ");
+            continue;
+        }
+        sb.append(curr.val).append(" ");
+        q.add(curr.left);
+        q.add(curr.right);
+    }
+    return sb.toString();
+}
+
+public TreeNode deserialize(String data) {
+    if (data.equals("n")) return null;
+
+    String[] arr = data.split(" ");
+    TreeNode root = new TreeNode(Integer.parseInt(arr[0]));
+
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+
+    int i = 1;
+    while (!q.isEmpty() && i < arr.length) {
+        TreeNode curr = q.poll();
+
+        if (!arr[i].equals("n")) {
+            curr.left = new TreeNode(Integer.parseInt(arr[i]));
+            q.add(curr.left);
+        }
+        i++;
+
+        if (i < arr.length && !arr[i].equals("n")) {
+            curr.right = new TreeNode(Integer.parseInt(arr[i]));
+            q.add(curr.right);
+        }
+        i++;
+    }
+    return root;
+}
+
+}
