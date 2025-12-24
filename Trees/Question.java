@@ -865,3 +865,33 @@ class Solution {
         prev=root;
     }
 }
+// level order 2
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> ans=new ArrayList<>();
+        if(root==null){
+            return ans;
+        }
+        Queue<TreeNode>qq=new LinkedList<>();
+        qq.add(root);
+        while(!qq.isEmpty()){
+            int size=qq.size();
+            List<Integer> ll=new ArrayList<>();
+            for(int i=0;i<size;i++){
+                TreeNode curr=qq.poll();
+                ll.add(curr.val);
+                if(curr.left!=null){
+                    qq.add(curr.left);
+                }
+                if(curr.right!=null){
+                    qq.add(curr.right);
+                }
+            }
+            ans.add(ll);
+        }
+        Collections.reverse(ans);
+        return ans;
+
+    }
+}
