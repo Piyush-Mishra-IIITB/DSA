@@ -819,3 +819,34 @@ class Solution {
     }
     
 }
+// morris preorder
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ll=new ArrayList<>();
+        TreeNode curr=root;
+        while(curr!=null){
+            if(curr.left ==null){
+                ll.add(curr.val);
+                curr=curr.right;
+            }else{
+                TreeNode lf=curr.left;
+                while(lf.right !=null && lf.right !=curr){
+                    lf=lf.right;
+                }
+                if(lf.right==null){
+                    lf.right=curr;
+                    ll.add(curr.val);
+                    curr=curr.left;
+                }
+                else{
+                    lf.right=null;
+                    curr=curr.right;
+                }
+            }
+        }
+       
+        return ll;
+    }
+    
+}
