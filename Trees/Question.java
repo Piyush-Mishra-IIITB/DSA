@@ -500,7 +500,6 @@ class Solution {
 }
 // max width of bt-leetcode=662
 
- */
 class Solution {
     class pair{
        TreeNode node;
@@ -893,5 +892,32 @@ class Solution {
         Collections.reverse(ans);
         return ans;
 
+    }
+}
+//longest univalue path
+// leetcode -687
+
+class Solution {
+    int length=0;
+    public int longestUnivaluePath(TreeNode root) {
+        helper(root);
+        return length;
+    }
+    public int helper(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int left=helper(root.left);
+        int right=helper(root.right);
+        int lp=0;
+        int rp=0;
+        if(root.left!=null && root.left.val==root.val){
+            lp=left+1;
+        }
+        if(root.right!=null && root.right.val==root.val){
+            rp=right+1;
+        }
+        length=Math.max(lp+rp,length);
+        return Math.max(lp,rp);
     }
 }
