@@ -137,3 +137,24 @@ class Solution {
         return node;
     }
 }
+// kth smallest element in BST
+
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+      List<Integer>ll=new ArrayList<>();
+      helper(root,ll);
+      int output=0;
+      for(int i=1;i<=ll.size();i++){
+           output =ll.get(k-1);
+      }
+      return output;
+    }
+    public static void helper(TreeNode root,List<Integer>ll){
+         if(root==null){
+            return;
+         }
+         helper(root.left,ll);
+         ll.add(root.val);
+         helper(root.right,ll);
+    }
+}
