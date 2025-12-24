@@ -55,3 +55,33 @@ class sol{
         return floor;
     }
 }
+// Inserting Node into BST
+
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        TreeNode v=new TreeNode(val);
+        if(root==null){
+            return v;
+        }
+        TreeNode curr=root;
+        while(true){
+            if(curr.val<val){
+                if(curr.right!=null){
+                    curr=curr.right;
+                }else{
+                    curr.right=v;
+                    break;
+                }
+            }else{
+                if(curr.left!=null){
+                    curr=curr.left;
+                }else{
+                    curr.left=v;
+                    break;
+                }
+            }
+        }
+       
+        return root;
+    }
+}
