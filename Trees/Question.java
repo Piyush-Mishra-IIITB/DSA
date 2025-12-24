@@ -688,3 +688,28 @@ class Solution {
         
     }
 }
+//leetcode -105
+// BT from inorder and preorder
+
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        HashMap<Integer,Integer>hm=new HashMap<>();
+        for(int i=0;i<inorder.length;i++){
+        hm.put(inorder[i],i);
+        }
+      return  build(preorder,0,preorder.length-1,inorder,0,inorder.length-1,hm);
+        
+    }
+    public TreeNode build(int[] preorder,int ps,int pe, int[] inorder,int is,int ie,HashMap<Integer,Integer>hm){
+        if(ps>pe || is>ie){
+            return null;
+        }
+        TreeNode root=new TreeNode(preorder[ps]);
+        int inroot=hm.get(root.val);
+        int numsleft=inroot-is;
+        root.left=build(preorder,ps+1,ps+numsleft,inorder,is,inroot-1,hm);
+        root.right=build(preorder,ps+numsleft+1,pe,inorder,inroot+1,ie,hm);
+        return root;
+
+    }
+}
