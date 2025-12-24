@@ -713,3 +713,25 @@ class Solution {
 
     }
 }
+// build tree from inorder and postorder
+
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int i=0;i<inorder.length;i++){
+            hm.put(inorder[i],i);
+        }
+      return  build(postorder,0,postorder.length-1,inorder,0,inorder.length-1,hm);
+    }
+    public TreeNode build(int[] postorder,int ps,int pe,int[] inorder,int is,int ie,HashMap<Integer,Integer> hm ){
+        if(ps>pe ||is>ie){
+            return null;
+        }
+        TreeNode root=new TreeNode(postorder[pe]);
+        int inroot=hm.get(root.val);
+        int numsleft=inroot-is;
+        root.left=build(postorder,ps,ps+numsleft-1,inorder,is,inroot-1,hm);
+        root.right=build(postorder,ps+numsleft,pe-1,inorder,inroot+1,ie,hm);
+        return root;
+    }
+}
