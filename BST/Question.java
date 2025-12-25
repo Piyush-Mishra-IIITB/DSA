@@ -158,3 +158,25 @@ class Solution {
          helper(root.right,ll);
     }
 }
+// validate a bst
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        
+       return helper(root,Long.MIN_VALUE,Long.MAX_VALUE);
+        }
+        public static boolean helper(TreeNode root,long min,long max){
+            if(root==null){
+                return true;
+            }
+            if(min>=root.val || root.val>=max){
+                return false;
+            }
+           boolean left=helper(root.left,min,root.val);
+           boolean right=helper(root.right,root.val,max);
+           if(!left || !right){
+            return false;
+           }
+           return true;
+        }
+}
