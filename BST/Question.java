@@ -201,3 +201,27 @@ class Solution {
         return root;
     }
 }
+// build a bst from preorder
+// leetcode-1008
+class Solution {
+    public TreeNode bstFromPreorder(int[] preorder) {
+        int inorder[]=preorder.clone();
+        Arrays.sort(inorder);
+        HashMap<Integer,Integer>hm=new HashMap<>();
+        for(int i=0;i<inorder.length;i++){
+              hm.put(inorder[i],i);
+        }
+        return helper(preorder,0,preorder.length-1,inorder,0,inorder.length-1,hm);
+    }
+    public static TreeNode helper(int[] preorder,int ps,int pe,int[] inorder,int is,int ie,HashMap<Integer,Integer>hm){
+        if(is>ie || ps>pe){
+            return null;
+        }
+        TreeNode root=new TreeNode(preorder[ps]);
+        int inroot=hm.get(root.val);
+        int numsleft=inroot-is;
+        root.left=helper(preorder,ps+1,ps+numsleft,inorder,is,inroot-1,hm);
+        root.right=helper(preorder,ps+numsleft+1,pe,inorder,inroot+1,ie,hm);
+        return root;
+    }
+}
