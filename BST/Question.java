@@ -303,3 +303,47 @@ class Solution {
         }
     }
 }
+// largest bst in bt
+class Solution {
+
+    static class NodeInfo {
+        int min;
+        int max;
+        int size;
+
+        NodeInfo(int min, int max, int size) {
+            this.min = min;
+            this.max = max;
+            this.size = size;
+        }
+    }
+    public static int largestBST(TreeNode root) {
+        return helper(root).size;
+    }
+
+    private static NodeInfo helper(TreeNode root) {
+        if (root == null) {
+            return new NodeInfo(
+                Integer.MAX_VALUE,
+                Integer.MIN_VALUE,
+                0
+            );
+        }
+
+        NodeInfo left = helper(root.left);
+        NodeInfo right = helper(root.right);
+        if (left.max < root.val && root.val < right.min) {
+
+            int min = Math.min(root.val, left.min);
+            int max = Math.max(root.val, right.max);
+            int size = left.size + right.size + 1;
+
+            return new NodeInfo(min, max, size);
+        }
+        return new NodeInfo(
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            Math.max(left.size, right.size)
+        );
+    }
+}
