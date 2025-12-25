@@ -180,3 +180,24 @@ class Solution {
            return true;
         }
 }
+// lca in BST
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+       return helper(root,p,q);
+    }
+    public static TreeNode helper(TreeNode root,TreeNode a,TreeNode b){
+        if(root==null || root==a || root ==b){
+            return root;
+        }
+        int min=Math.min(a.val,b.val);
+        int max=Math.max(a.val,b.val);
+        if(root.val> max){
+           return helper(root.left,a,b);
+        }
+        if(root.val<min){
+           return helper(root.right,a,b);
+        }
+        return root;
+    }
+}
