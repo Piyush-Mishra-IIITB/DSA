@@ -225,3 +225,41 @@ class Solution {
         return root;
     }
 }
+// two sum in BST
+
+class Solution {
+     static int idx = 0;
+    public boolean findTarget(TreeNode root, int k) {
+        int length=count(root);
+        int arr[]=new int[length];
+        idx=0;
+        inorder(arr,root);
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                int sum=arr[i]+arr[j];
+                if(sum==k){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+public static void inorder(int arr[], TreeNode root){
+    if(root == null){
+        return;
+    }
+    inorder(arr, root.left);
+    arr[idx++] = root.val;
+    inorder(arr, root.right);
+}
+
+  public static int count(TreeNode root){
+    if(root==null){
+        return 0;
+    }
+   int lh=count(root.left);
+   int rh=count(root.right);
+   return lh+rh+1;
+  }
+}
