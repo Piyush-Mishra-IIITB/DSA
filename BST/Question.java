@@ -364,3 +364,23 @@ class Solution {
         return root; 
     }
 }
+//leetcode-111
+class Solution {
+    public int minDepth(TreeNode root) {
+        return helper(root);
+    }
+
+    public int helper(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+
+        int l = helper(root.left);
+        int r = helper(root.right);
+
+        if(l == 0) return r + 1;
+        if(r == 0) return l + 1;
+
+        return Math.min(l, r) + 1;
+    }
+}
