@@ -107,3 +107,29 @@ class Solution {
         return count;
     }
 }
+// leetcode-48
+class Solution {
+    public void rotate(int[][] arr) {
+        for(int i=0;i<arr.length-1;i++){
+            for(int j=i+1;j<arr.length;j++){
+                int temp=arr[i][j];
+                arr[i][j]=arr[j][i];
+                arr[j][i]=temp;
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            reverse(arr[i]);
+        }
+    }
+    public static void reverse(int arr[]){
+        int start=0;
+        int end=arr.length-1;
+        while(start<=end){
+            int t=arr[start];
+            arr[start]=arr[end];
+            arr[end]=t;
+            start++;
+            end--;
+        }
+    }
+}
