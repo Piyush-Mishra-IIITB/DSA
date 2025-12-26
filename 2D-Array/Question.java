@@ -133,3 +133,46 @@ class Solution {
         }
     }
 }
+// set matrix zero
+import java.util.*;
+
+class Index {
+    int row;
+    int col;
+
+    Index(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+}
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        List<Index> list = new ArrayList<>();
+        helper(list, matrix);
+
+        for (int k = 0; k < list.size(); k++) {
+            int r = list.get(k).row;
+            int c = list.get(k).col;
+
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][c] = 0;
+            }
+
+           
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[r][j] = 0;
+            }
+        }
+    }
+
+    public void helper(List<Index> list, int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    list.add(new Index(i, j));
+                }
+            }
+        }
+    }
+}
