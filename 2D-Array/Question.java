@@ -1,0 +1,49 @@
+package 2D-Array;
+
+public class Question {
+    
+}
+// spiral matrix
+class Solution {
+    public List<Integer> spiralOrder(int[][] arr) {
+        int sr = 0, sc = 0;
+        int er = arr.length - 1;
+        int ec = arr[0].length - 1;
+
+        List<Integer> ans = new ArrayList<>();
+
+        while (sr <= er && sc <= ec) {
+
+            // top row
+            for (int i = sc; i <= ec; i++) {
+                ans.add(arr[sr][i]);
+            }
+
+            // right column
+            for (int i = sr + 1; i <= er; i++) {
+                ans.add(arr[i][ec]);
+            }
+
+            // bottom row
+            if (sr < er) {
+                for (int i = ec - 1; i >= sc; i--) {
+                    ans.add(arr[er][i]);
+                }
+            }
+
+            // left column
+            if (sc < ec) {
+                for (int i = er - 1; i > sr; i--) {
+                    ans.add(arr[i][sc]);
+                }
+            }
+
+            sr++;
+            sc++;
+            er--;
+            ec--;
+        }
+
+        return ans;
+    }
+}
