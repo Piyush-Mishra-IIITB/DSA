@@ -78,3 +78,24 @@ class Solution {
         return true;
     }
 }
+// brute force of jump-game 2
+class Solution {
+    public int jump(int[] arr) {
+       return helper(0,arr);
+       
+    }
+    public int helper(int ind,int arr[]){
+        if(ind>=arr.length-1){
+            return 0;
+        }
+        if(arr[ind]==0){return Integer.MAX_VALUE;}
+        int min=Integer.MAX_VALUE;
+        for(int i=1;i<arr[ind];i++){
+           int sub=helper(ind+1,arr);
+            if(sub!=Integer.MAX_VALUE){
+                min=Math.min(min,sub+1);
+            }
+        }
+        return min;
+    }
+}
