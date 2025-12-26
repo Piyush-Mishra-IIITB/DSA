@@ -60,3 +60,21 @@ class Solution {
         return true;
     }
 }
+// jump game 
+// leetcode 55
+class Solution {
+    public boolean canJump(int[] arr) {
+        int maxIndex = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (i > maxIndex) {
+                return false;
+            }
+            maxIndex = Math.max(maxIndex, i + arr[i]);
+            if (maxIndex >= arr.length - 1) {
+                return true;
+            }
+        }
+        return true;
+    }
+}
