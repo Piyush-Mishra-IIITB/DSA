@@ -1,5 +1,9 @@
 package Heap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 import javax.swing.tree.TreeNode;
@@ -163,6 +167,28 @@ class Solution {
         }
 
         return (int) sum;
+    }
+}
+// k most frequent ellements
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for (int num : nums) {
+            hm.put(num, hm.getOrDefault(num, 0) + 1);
+        }
+
+        List<Map.Entry<Integer, Integer>> list =
+                new ArrayList<>(hm.entrySet());
+
+        list.sort((a, b) -> b.getValue() - a.getValue());
+
+        int[] arr = new int[k];
+        for (int i = 0; i < k; i++) {
+            arr[i] = list.get(i).getKey();
+        }
+
+        return arr;
     }
 }
 
