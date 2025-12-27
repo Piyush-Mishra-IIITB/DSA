@@ -234,3 +234,28 @@ class Solution {
         return result.toArray(new int[result.size()][]);
     }
 }
+// leetcode 435-non overlapping interval
+class Solution {
+    public int eraseOverlapIntervals(int[][] arr) {
+        if (arr.length == 0) return 0;
+
+        Arrays.sort(arr, (a, b) -> Integer.compare(a[1], b[1]));
+
+        List<int[]> kept = new ArrayList<>();
+        kept.add(arr[0]);
+
+        int prevEnd = arr[0][1];
+
+        for (int i = 1; i < arr.length; i++) {
+            int currStart = arr[i][0];
+            int currEnd = arr[i][1];
+
+            if (currStart >= prevEnd) {
+                kept.add(arr[i]);
+                prevEnd = currEnd;
+            }
+        }
+        return arr.length - kept.size();
+    }
+}
+
