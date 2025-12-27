@@ -73,3 +73,32 @@ class Solution {
         return min.peek();
     }
 }
+// is bt a complete bt
+
+class Solution {
+    public boolean isCompleteTree(TreeNode root) {
+        int length=len(root);
+        return helper(root,0,length);
+    }
+    public boolean helper(TreeNode root,int i,int length){
+        if(root==null){
+            return true;
+        }
+        if(i>=length){
+            return false;
+        }
+        else{
+            boolean left=helper(root.left,2*i+1,length);
+            boolean right=helper(root.right,2*i+2,length);
+            return left&& right;
+        }
+    }
+    public int len(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int lh=len(root.left);
+        int rh=len(root.right);
+        return lh+rh+1;
+    }
+}
