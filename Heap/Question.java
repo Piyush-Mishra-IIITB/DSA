@@ -1,5 +1,9 @@
 package Heap;
 
+import java.util.PriorityQueue;
+
+import javax.swing.tree.TreeNode;
+
 public class Question {
     
 }
@@ -125,3 +129,40 @@ class Solution {
         return cost;
     }
 }
+// leetcode -1508
+class Solution {
+    public int rangeSum(int[] arr, int n, int left, int right) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += arr[j];
+                pq.add(sum);
+            }
+        }
+
+        return helper(pq, left, right);
+    }
+
+    public int helper(PriorityQueue<Integer> pq, int left, int right) {
+        int MOD = 1000000007;
+
+        int i = 1;
+        while (i < left) {
+            pq.poll();
+            i++;
+        }
+
+        long sum = 0;  
+        int var = left;
+
+        while (var <= right) {
+            sum = (sum + pq.poll()) % MOD;
+            var++;
+        }
+
+        return (int) sum;
+    }
+}
+
