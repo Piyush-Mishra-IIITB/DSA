@@ -102,3 +102,26 @@ class Solution {
         return lh+rh+1;
     }
 }
+// mincost of rope
+class Solution {
+    public int minCost(int[] ropes) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for (int r : ropes) {
+            pq.add(r);
+        }
+
+        int cost = 0;
+
+        while (pq.size() > 1) {
+            int a = pq.poll();
+            int b = pq.poll();
+            int sum = a + b;
+
+            cost += sum;
+            pq.add(sum);
+        }
+
+        return cost;
+    }
+}
