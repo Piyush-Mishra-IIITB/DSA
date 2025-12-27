@@ -206,3 +206,31 @@ class Solution {
         return false;
     }
 }
+// merge interval
+class Solution {
+    public int[][] merge(int[][] arr) {
+
+        Arrays.sort(arr, (a, b) -> Integer.compare(a[0], b[0]));
+
+        List<int[]> result = new ArrayList<>();
+
+        int start = arr[0][0];
+        int end = arr[0][1];
+
+        for (int i = 1; i < arr.length; i++) {
+            int s2 = arr[i][0];
+            int e2 = arr[i][1];
+
+            if (s2 <= end) {
+                end = Math.max(end, e2);
+            } else {
+                result.add(new int[]{start, end});
+                start = s2;
+                end = e2;
+            }
+        }
+        result.add(new int[]{start, end});
+
+        return result.toArray(new int[result.size()][]);
+    }
+}
