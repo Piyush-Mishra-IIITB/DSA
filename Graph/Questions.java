@@ -87,3 +87,27 @@ class Solution {
         }
     }
 }
+// flood fill algo
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int initC=image[sr][sc];
+        if (initC == color) return image;
+       return helper(sr,sc,initC,image,color);
+    }
+    public int[][] helper(int sr,int sc,int initC,int image[][],int nC){
+        image[sr][sc]=nC;
+        int n=image.length;
+        int m=image[0].length;
+        if(sr+1<n && image[sr+1][sc]==initC){
+            helper(sr+1,sc,initC,image,nC);
+        }if(sr-1>=0 && image[sr-1][sc]==initC){
+            helper(sr-1,sc,initC,image,nC);
+        }if(sc+1<m && image[sr][sc+1]==initC){
+            helper(sr,sc+1,initC,image,nC);
+        }
+        if(sc-1>=0 && image[sr][sc-1]==initC){
+            helper(sr,sc-1,initC,image,nC);
+        }
+        return image;
+    }
+}
