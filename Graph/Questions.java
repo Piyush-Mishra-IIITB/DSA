@@ -111,3 +111,63 @@ class Solution {
         return image;
     }
 }
+// rotten oranges
+// leetcode-994
+
+class pair{
+    int row;
+    int col;
+    int tm;
+    pair(int row,int col,int tm){
+        this.row=row;
+        this.col=col;
+        this.tm=tm;
+    }}
+    class Solution {
+    public int orangesRotting(int[][] grid) {
+        Queue<pair>qq=new LinkedList<>();
+        int n=grid.length;
+        int m=grid[0].length;
+        int vis[][]=new int[n][m];
+        int counterfresh=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    qq.add(new pair(i,j,0));
+                    vis[i][j]=2;
+                }
+                else{
+                    vis[i][j]=0;
+                }
+                if(grid[i][j]==1){
+                    counterfresh++;
+                }
+            }
+        }
+        int timer=0;
+        int drow[]={-1,0,1,0};
+        int dcol[]={0,1,0,-1};
+        int counter=0;
+        while(!qq.isEmpty()){
+            int r=qq.peek().row;
+            int c=qq.peek().col;
+            int t=qq.peek().tm;
+            timer=Math.max(timer,t);
+            qq.poll();
+          for(int i=0;i<4;i++){
+            int newRow=r+drow[i];
+            int newCol=c+dcol[i];
+            if(newRow>=0 &&newRow<n &&newCol>=0 &&newCol<m&& grid[newRow][newCol]==1&& vis[newRow][newCol]==0){
+                qq.add(new pair(newRow,newCol,t+1));
+                vis[newRow][newCol]=2;
+                counter++;
+            }
+          }
+        }
+        if(counter!=counterfresh){
+            return -1;
+        }else{
+            return timer;
+        }
+    }
+}
