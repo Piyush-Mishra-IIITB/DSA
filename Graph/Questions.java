@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import Graph.Questions.Pair;
+
 public class Questions {
     
 }
@@ -219,3 +221,39 @@ class Solution {
         return false;
     }
 }
+// cycle detection using dfs
+class Solution {
+
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        int[] vis = new int[V];
+
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                if (detectCycle(i, -1, adj, vis)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean detectCycle(int node, int parent,
+                                ArrayList<ArrayList<Integer>> adj,
+                                int[] vis) {
+
+        vis[node] = 1;
+
+        for (int neighbor : adj.get(node)) {
+            if (vis[neighbor] == 0) {
+                if (detectCycle(neighbor, node, adj, vis)) {
+                    return true;
+                }
+            }
+            else if (neighbor != parent) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
