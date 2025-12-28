@@ -257,3 +257,56 @@ class Solution {
     }
 }
 
+// leetcode 542
+
+class pair{
+    int row;
+    int col;
+    int near;
+    pair(int row,int col,int near){
+        this.row=row;
+        this.col=col;
+        this.near=near;
+    }
+    
+}
+    class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int n=mat.length;
+        int m=mat[0].length;
+    Queue<pair>qq=new LinkedList<>();
+    int vis[][]=new int[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            vis[i][j]=0;
+        }
+    }
+    int dist[][]=new int[n][m];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(mat[i][j]==0){
+                qq.add(new pair(i,j,0));
+                vis[i][j]=1;
+            }
+        }
+    }
+    int ar[]={-1,0,1,0};
+    int ac[]={0,1,0,-1};
+    while(!qq.isEmpty()){
+        int crow=qq.peek().row;
+        int ccol=qq.peek().col;
+        int cdis=qq.peek().near;
+        dist[crow][ccol]=cdis;
+        qq.poll();
+        for(int i=0;i<4;i++){
+            int newRow=crow+ar[i];
+            int newCol=ccol+ac[i];
+            if(newRow>=0 && newRow<n &&newCol>=0 && newCol<m && vis[newRow][newCol]==0){
+                vis[newRow][newCol]=1;
+                qq.add(new pair(newRow,newCol,cdis+1));
+            }
+        }
+    }
+return dist;
+    }
+}
