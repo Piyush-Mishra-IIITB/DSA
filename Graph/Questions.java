@@ -171,3 +171,51 @@ class pair{
         }
     }
 }
+// detect cycle using bfs in undirected graph
+class Pair {
+    int node;
+    int parent;
+
+    Pair(int node, int parent) {
+        this.node = node;
+        this.parent = parent;
+    }
+}
+
+class Solution {
+    public boolean isCycle(int V, List<Integer>[] adj) {
+        boolean[] vis = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (detectCycle(i, adj, vis)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean detectCycle(int src, List<Integer>[] adj, boolean[] vis) {
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(src, -1));
+        vis[src] = true;
+
+        while (!q.isEmpty()) {
+            Pair cur = q.poll();
+            int node = cur.node;
+            int parent = cur.parent;
+
+            for (int adjNode : adj[node]) {
+                if (!vis[adjNode]) {
+                    vis[adjNode] = true;
+                    q.add(new Pair(adjNode, node));
+                }
+                else if (adjNode != parent) {
+                    return true;  
+                }
+            }
+        }
+        return false;
+    }
+}
