@@ -362,3 +362,71 @@ class Solution {
         dfs(r, c - 1, board, vis);
     }
 }
+// leetcode -1020
+//number of enclaves
+class pair{
+    int row;
+    int col;
+    pair(int row,int col){
+      this.row=row;
+      this.col=col;
+    }
+}
+class Solution {
+    public int numEnclaves(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+        int vis[][]=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                vis[i][j]=0;
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][0]==1&& vis[i][0]==0){
+                    bfs(i,0,vis,grid);
+                }
+                if(grid[i][m-1]==1&& vis[i][m-1]==0){
+                    bfs(i,m-1,vis,grid);
+                }
+                if(grid[0][j]==1&& vis[0][j]==0){
+                    bfs(0,j,vis,grid);
+                }if(grid[n-1][j]==1&& vis[n-1][j]==0){
+                    bfs(n-1,j,vis,grid);
+                }
+            }
+        }
+        int output=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]==0&&grid[i][j]==1){
+                    output++;
+                }
+            }
+        }
+        return output;
+    }
+    public void bfs(int row,int col,int vis[][],int grid[][]){
+        Queue<pair>qq=new LinkedList<>();
+        int n=grid.length;
+        int m=grid[0].length;
+        qq.add(new pair(row,col));
+        vis[row][col]=1;
+        int rc[]={-1,0,1,0};
+        int cc[]={0,1,0,-1};
+        while(!qq.isEmpty()){
+               int crow=qq.peek().row;
+               int ccow=qq.peek().col;
+               qq.poll();
+               for(int i=0;i<4;i++){
+                int newRow=crow+rc[i];
+                int newColl=ccow+cc[i];
+                if(newRow>=0&&newRow<n&&newColl>=0&&newColl<m&&vis[newRow][newColl]==0&&grid[newRow][newColl]==1){
+                    qq.add(new pair(newRow,newColl));
+                    vis[newRow][newColl]=1;
+                }
+               }
+        }
+    }
+}
