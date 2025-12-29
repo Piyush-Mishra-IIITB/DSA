@@ -535,3 +535,41 @@ class Solution {
         }
     }
 }
+// Bipartite graph using bfs
+
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+      int n=graph.length;
+       int vis[]=new int[n];
+       for(int i=0;i<n;i++){
+            vis[i]=-1;
+       }
+       for(int i=0;i<n;i++){
+        if(vis[i]==-1){
+            if(bfs(i,vis,graph)==false){
+                return false;
+            }
+        }
+       }
+       return true;
+    }
+    public boolean bfs(int start,int vis[],int graph[][]){
+        Queue<Integer>qq=new LinkedList<>();
+        qq.add(start);
+        vis[start]=1;
+        while(!qq.isEmpty()){
+            int node=qq.peek();
+            qq.poll();
+            for(int adj:graph[node]){
+                if(vis[adj]==-1){
+                    vis[adj]=1-vis[node];
+                    qq.add(adj);
+                }
+                else if(vis[adj]==vis[node]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
