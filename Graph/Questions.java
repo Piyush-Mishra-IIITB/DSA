@@ -490,3 +490,48 @@ class Solution {
         }
     }
 }
+// no. of distict island
+class Solution {
+
+    public int numDistinctIslands(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] vis = new boolean[n][m];
+
+        Set<List<String>> set = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1 && !vis[i][j]) {
+                    List<String> shape = new ArrayList<>();
+                    dfs(i, j, i, j, grid, vis, shape);
+                    set.add(shape);
+                }
+            }
+        }
+        return set.size();
+    }
+
+    private void dfs(int r, int c, int br, int bc,
+                     int[][] grid, boolean[][] vis,
+                     List<String> shape) {
+
+        vis[r][c] = true;
+        shape.add((r - br) + "," + (c - bc));
+
+        int[] dr = {-1, 0, 1, 0};
+        int[] dc = {0, 1, 0, -1};
+
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+
+            if (nr >= 0 && nr < grid.length &&
+                nc >= 0 && nc < grid[0].length &&
+                grid[nr][nc] == 1 && !vis[nr][nc]) {
+
+                dfs(nr, nc, br, bc, grid, vis, shape);
+            }
+        }
+    }
+}
