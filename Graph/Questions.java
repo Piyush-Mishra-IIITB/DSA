@@ -573,3 +573,45 @@ class Solution {
         return true;
     }
 }
+// cycle detection using dfs in directed graph
+class Solution {
+    public boolean isCyclic(int N, List<List<Integer>> adj) {
+        int[] vis = new int[N];
+        int[] pathvis = new int[N];
+
+        for (int i = 0; i < N; i++) {
+            vis[i] = -1;
+        }
+
+        for (int i = 0; i < N; i++) {
+            if (vis[i] == -1) {
+                if (dfs(i, adj, vis, pathvis)) {
+                    return true; 
+                }
+            }
+        }
+        return false; 
+    }
+
+    public boolean dfs(int node, List<List<Integer>> adj,
+                       int[] vis, int[] pathvis) {
+
+        vis[node] = 1;
+        pathvis[node] = 1;
+
+        for (int ad : adj.get(node)) {
+
+            if (vis[ad] == -1) {
+                if (dfs(ad, adj, vis, pathvis)) {
+                    return true;
+                }
+            }
+            else if (pathvis[ad] == 1) {
+                return true; 
+            }
+        }
+
+        pathvis[node] = 0;
+        return false;
+    }
+}
