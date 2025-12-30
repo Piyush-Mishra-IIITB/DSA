@@ -1,9 +1,12 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
 import Graph.Questions.Pair;
 
@@ -696,3 +699,39 @@ class Solution {
         ss.push(start);
     }
 }
+// kahn's algo
+//topo with bfs
+class Solution {
+    public int[] topoSort(int V, List<List<Integer>> adj) {
+
+        int[] ind = new int[V];
+        for (int i = 0; i < V; i++) {
+            for (int it : adj.get(i)) {
+                ind[it]++;
+            }
+        }
+        Queue<Integer> qq = new LinkedList<>();
+        for (int i = 0; i < V; i++) {
+            if (ind[i] == 0) {
+                qq.add(i);
+            }
+        }
+        int[] topo = new int[V];
+        int index = 0;
+
+        while (!qq.isEmpty()) {
+            int node = qq.poll();
+            topo[index++] = node;
+
+            for (int it : adj.get(node)) {
+                ind[it]--;
+                if (ind[it] == 0) {
+                    qq.add(it);
+                }
+            }
+        }
+
+        return topo;
+    }
+}
+
