@@ -615,3 +615,46 @@ class Solution {
         return false;
     }
 }
+//Eventual Safe States leetcode -802
+
+class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int n=graph.length;
+        int vis[]=new int[n];
+        int pathvis[]=new int[n];
+        int safe[]=new int[n];
+        for(int i=0;i<n;i++){
+            vis[i]=0;
+        }
+        for(int i=0;i<n;i++){
+            if(vis[i]==0){
+                dfs(i,vis,pathvis,safe,graph);
+            }
+        }
+        List<Integer>ans=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(safe[i]==1){
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+    public boolean dfs(int start,int vis[],int pathvis[],int safe[],int[][] graph){
+        vis[start]=1;
+        pathvis[start]=1;
+        safe[start]=0;
+        for(int ad:graph[start]){
+             if(vis[ad]==0){
+                if(dfs(ad,vis,pathvis,safe,graph)==true){
+                    return true;
+                }
+             }
+             else if(pathvis[ad]==1){
+                return true;
+             }
+        }
+        safe[start]=1;
+        pathvis[start]=0;
+        return false;
+    }
+}
