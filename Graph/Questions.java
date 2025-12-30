@@ -926,4 +926,73 @@ class Solution {
         return ans;
     }
 }
+// shortest path in DAG
+import java.util.*;
 
+class Pair {
+    int val;
+    int wt;
+    Pair(int val, int wt) {
+        this.val = val;
+        this.wt = wt;
+    }
+}
+
+class Solution {
+    public int[] shortestPath(int N, int M, int[][] edges) {
+
+        List<List<Pair>> adj = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < M; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj.get(u).add(new Pair(v, wt));
+        }
+
+        int[] vis = new int[N];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 0; i < N; i++) {
+            if (vis[i] == 0) {
+                dfs(i, vis, st, adj);
+            }
+        }
+
+        int[] dist = new int[N];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[0] = 0;
+
+        while (!st.isEmpty()) {
+            int node = st.pop();
+            if (dist[node] != Integer.MAX_VALUE) {
+                for (Pair it : adj.get(node)) {
+                    if (dist[node] + it.wt < dist[it.val]) {
+                        dist[it.val] = dist[node] + it.wt;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            if (dist[i] == Integer.MAX_VALUE) {
+                dist[i] = -1;
+            }
+        }
+
+        return dist;
+    }
+
+    public void dfs(int node, int[] vis, Stack<Integer> st, List<List<Pair>> adj) {
+        vis[node] = 1;
+        for (Pair it : adj.get(node)) {
+            if (vis[it.val] == 0) {
+                dfs(it.val, vis, st, adj);
+            }
+        }
+        st.push(node);
+    }
+}
