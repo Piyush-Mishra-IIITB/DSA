@@ -658,3 +658,41 @@ class Solution {
         return false;
     }
 }
+// topo sort
+class Solution {
+    public int[] topoSort(int V, List<List<Integer>> adj) {
+
+        int[] vis = new int[V];
+        Stack<Integer> ss = new Stack<>();
+
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                dfs(i, vis, ss, adj);
+            }
+        }
+
+        int[] arr = new int[V];
+        int index = 0;
+
+        while (!ss.isEmpty()) {
+            arr[index++] = ss.pop();
+        }
+
+        return arr;
+    }
+
+    public static void dfs(int start, int[] vis,
+                           Stack<Integer> ss,
+                           List<List<Integer>> adj) {
+
+        vis[start] = 1;
+
+        for (int ad : adj.get(start)) {
+            if (vis[ad] == 0) {
+                dfs(ad, vis, ss, adj);
+            }
+        }
+
+        ss.push(start);
+    }
+}
