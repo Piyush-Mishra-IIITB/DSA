@@ -860,3 +860,70 @@ class Solution {
         return topo;
     }
 }
+// Alien Dictionary
+
+class Solution {
+    public String findOrder(String[] dict, int n, int k) {
+
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < n - 1; i++) {
+            String a = dict[i];
+            String b = dict[i + 1];
+
+            int len = Math.min(a.length(), b.length());
+
+            for (int pt = 0; pt < len; pt++) {
+                if (a.charAt(pt) != b.charAt(pt)) {
+                    adj.get(a.charAt(pt) - 'a')
+                       .add(b.charAt(pt) - 'a');
+                    break;
+                }
+            }
+        }
+
+        List<Integer> topoOrder = topo(k, adj);
+
+        StringBuilder ans = new StringBuilder();
+        for (int i : topoOrder) {
+            ans.append((char) (i + 'a'));
+        }
+
+        return ans.toString();
+    }
+
+    public List<Integer> topo(int v, List<List<Integer>> adj) {
+        int[] indegree = new int[v];
+
+        for (int i = 0; i < v; i++) {
+            for (int it : adj.get(i)) {
+                indegree[it]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < v; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            ans.add(node);
+            for (int it : adj.get(node)) {
+                indegree[it]--;
+                if (indegree[it] == 0) {
+                    q.add(it);
+                }
+            }
+        }
+
+        return ans;
+    }
+}
+
