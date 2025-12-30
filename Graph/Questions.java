@@ -735,3 +735,38 @@ class Solution {
     }
 }
 
+// detectinf a cycle in Directed cyclic graph
+//using khan's algo
+class Solution {
+    public boolean isCyclic(int n, List<List<Integer>> adj) {
+      int ind[]=new int[n];
+      for(int i=0;i<n;i++){
+        for(int it:adj.get(i)){
+          ind[it]++;
+        }
+      }
+      Queue<Integer>qq=new LinkedList<>();
+      for(int i=0;i<n;i++){
+        if(ind[i]==0){
+          qq.add(i);
+        }
+      }
+      List<Integer>ll=new ArrayList<>();
+      while(!qq.isEmpty()){
+        int node=qq.poll();
+           ll.add(node);
+           for(int it:adj.get(node)){
+            ind[it]--;
+            if(ind[it]==0){
+              qq.add(it);
+            }        
+        }
+      }
+      if(ll.size()==n){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+}
