@@ -996,3 +996,46 @@ class Solution {
         st.push(node);
     }
 }
+// dijkstra's algorithm
+class pair {
+    int first;   // distance
+    int second;  // node
+
+    pair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+}
+
+class Solution {
+    public int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S) {
+
+        PriorityQueue<pair> pq =
+            new PriorityQueue<>((a, b) -> a.first - b.first);
+
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        dist[S] = 0;
+        pq.add(new pair(0, S));
+
+        while (!pq.isEmpty()) {
+
+            pair p = pq.poll();
+            int dis = p.first;
+            int node = p.second;
+
+            for (ArrayList<Integer> it : adj.get(node)) {
+
+                int adjNode = it.get(0);
+                int wt = it.get(1);
+
+                if (dis + wt < dist[adjNode]) {
+                    dist[adjNode] = dis + wt;
+                    pq.add(new pair(dist[adjNode], adjNode));
+                }
+            }
+        }
+        return dist;
+    }
+}
