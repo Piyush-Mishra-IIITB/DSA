@@ -1148,3 +1148,60 @@ class Solution {
         return ans;
     }
 }
+// shortest distance in a binary maze
+class pair {
+    int dis;
+    int row;
+    int col;
+
+    pair(int dis, int row, int col) {
+        this.dis = dis;
+        this.row = row;
+        this.col = col;
+    }
+}
+
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+
+        int n = grid.length;
+        if (grid[0][0] == 1 || grid[n - 1][n - 1] == 1) return -1;
+
+        int[][] dist = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                dist[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        Queue<pair> qq = new LinkedList<>();
+        qq.add(new pair(1, 0, 0));
+        dist[0][0] = 1;
+
+        int[] dr = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] dc = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        while (!qq.isEmpty()) {
+            pair curr = qq.poll();
+            int dis = curr.dis;
+            int r = curr.row;
+            int c = curr.col;
+
+            if (r == n - 1 && c == n - 1) return dis;
+
+            for (int i = 0; i < 8; i++) {
+                int newr = r + dr[i];
+                int newc = c + dc[i];
+
+                if (newr >= 0 && newc >= 0 && newr < n && newc < n
+                        && grid[newr][newc] == 0
+                        && dis + 1 < dist[newr][newc]) {
+
+                    dist[newr][newc] = dis + 1;
+                    qq.add(new pair(dis + 1, newr, newc));
+                }
+            }
+        }
+        return -1;
+    }
+}
