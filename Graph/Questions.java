@@ -1205,3 +1205,55 @@ class Solution {
         return -1;
     }
 }
+// path with min effort
+
+class pair{
+    int dif;
+    int row;
+    int col;
+    pair(int dif,int row,int col){
+        this.dif=dif;
+        this.row=row;
+        this.col=col;
+    }
+}
+class Solution {
+    public int minimumEffortPath(int[][] arr) {
+        int n=arr.length;
+        int m=arr[0].length;
+        int diff[][]=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+            diff[i][j]=Integer.MAX_VALUE;
+        }}
+        diff[0][0]=0;
+        PriorityQueue<pair>qq=new PriorityQueue<>((a,b)->a.dif-b.dif);
+        qq.add(new pair(0,0,0));
+        int dr[]={1,0,-1,0};
+        int dc[]={0,-1,0,1};
+        while(!qq.isEmpty()){
+            pair node=qq.poll();
+            int d=node.dif;
+            int r=node.row;
+            int c=node.col;
+            if(r==n-1 && c==m-1){
+                return d;
+            }
+            if(d>diff[r][c]){
+                continue;
+            }
+            for(int i=0;i<4;i++){
+               int nr=r+dr[i];
+               int nc=c+dc[i];
+               if(nr>=0&&nc>=0&&nc<m&&nr<n){
+                int effort=Math.max(d,Math.abs(arr[nr][nc]-arr[r][c]));
+                if(effort<diff[nr][nc]){
+                    diff[nr][nc]=effort;
+                    qq.add(new pair(effort,nr,nc));
+                }
+               }
+            }
+        }
+        return 0;
+    }
+}
