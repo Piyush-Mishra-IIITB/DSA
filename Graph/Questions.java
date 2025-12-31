@@ -1392,3 +1392,76 @@ class Solution {
         return ways[n - 1];
     }
 }
+// network delay time
+class pair {
+    int target;
+    int time;
+
+    pair(int target, int time) {
+        this.target = target;
+        this.time = time;
+    }
+}
+
+class dou {
+    int dist;
+    int node;
+
+    dou(int dist, int node) {
+        this.dist = dist;
+        this.node = node;
+    }
+}
+
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+
+        ArrayList<ArrayList<pair>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < times.length; i++) {
+            int u = times[i][0] - 1;
+            int v = times[i][1] - 1;
+            int w = times[i][2];
+            adj.get(u).add(new pair(v, w));
+        }
+
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        PriorityQueue<dou> pq =
+            new PriorityQueue<>((a, b) -> a.dist - b.dist);
+
+        dist[k - 1] = 0;
+        pq.add(new dou(0, k - 1));
+
+        while (!pq.isEmpty()) {
+            dou curr = pq.poll();
+            int d = curr.dist;
+            int node = curr.node;
+
+            if (d > dist[node]) continue;
+
+            for (pair it : adj.get(node)) {
+                int next = it.target;
+                int wt = it.time;
+
+                if (d + wt < dist[next]) {
+                    dist[next] = d + wt;
+                    pq.add(new dou(dist[next], next));
+                }
+            }
+        }
+
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            if (dist[i] == Integer.MAX_VALUE) return -1;
+            max = Math.max(max, dist[i]);
+        }
+
+        return max;
+    }
+}
+
