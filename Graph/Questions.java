@@ -1079,3 +1079,72 @@ class Solution {
     }
 }
 
+// shortest path
+class pair {
+    int first;
+    int second;
+
+    pair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+}
+
+class Solution {
+    public List<Integer> dijkstra(
+            int V,
+            ArrayList<ArrayList<ArrayList<Integer>>> adj,
+            int S,
+            int D) {
+
+        PriorityQueue<pair> pq =
+            new PriorityQueue<>((a, b) -> a.first - b.first);
+
+        int[] dist = new int[V];
+        int[] parent = new int[V];
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        for (int i = 0; i < V; i++) {
+            parent[i] = i;
+        }
+
+        dist[S] = 0;
+        pq.add(new pair(0, S));
+
+        while (!pq.isEmpty()) {
+            pair curr = pq.poll();
+            int dis = curr.first;
+            int node = curr.second;
+
+            if (dis > dist[node]) continue;
+
+            for (ArrayList<Integer> it : adj.get(node)) {
+                int adjNode = it.get(0);
+                int wt = it.get(1);
+
+                if (dis + wt < dist[adjNode]) {
+                    dist[adjNode] = dis + wt;
+                    parent[adjNode] = node;
+                    pq.add(new pair(dist[adjNode], adjNode));
+                }
+            }
+        }
+
+        if (dist[D] == Integer.MAX_VALUE) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        int node = D;
+
+        while (parent[node] != node) {
+            ans.add(node);
+            node = parent[node];
+        }
+
+        ans.add(S);
+        Collections.reverse(ans);
+        return ans;
+    }
+}
