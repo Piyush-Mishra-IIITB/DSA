@@ -1319,3 +1319,76 @@ class Solution {
        return dis[dst];
     }
 }
+// leetcode-1976
+// Number of Ways to Arrive at Destination
+class pair {
+    long dist;
+    int node;
+
+    pair(long dist, int node) {
+        this.dist = dist;
+        this.node = node;
+    }
+}
+
+class ad {
+    int to;
+    int wt;
+
+    ad(int to, int wt) {
+        this.to = to;
+        this.wt = wt;
+    }
+}
+
+class Solution {
+    public int countPaths(int n, int[][] roads) {
+
+        int MOD = 1_000_000_007;
+
+        ArrayList<ArrayList<ad>> adj = new ArrayList<>();
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<>());
+
+        for (int i = 0; i < roads.length; i++) {
+            int u = roads[i][0];
+            int v = roads[i][1];
+            int w = roads[i][2];
+            adj.get(u).add(new ad(v, w));
+            adj.get(v).add(new ad(u, w));
+        }
+
+        long[] dist = new long[n];
+        Arrays.fill(dist, Long.MAX_VALUE);
+        dist[0] = 0;
+
+        int[] ways = new int[n];
+        ways[0] = 1;
+
+        PriorityQueue<pair> pq =
+            new PriorityQueue<>((a, b) -> Long.compare(a.dist, b.dist));
+
+        pq.add(new pair(0, 0));
+
+        while (!pq.isEmpty()) {
+            pair p = pq.poll();
+            long d = p.dist;
+            int u = p.node;
+
+            if (d > dist[u]) continue;
+
+            for (ad it : adj.get(u)) {
+                int v = it.to;
+                int wt = it.wt;
+
+                if (d + wt < dist[v]) {
+                    dist[v] = d + wt;
+                    ways[v] = ways[u];
+                    pq.add(new pair(dist[v], v));
+                } else if (d + wt == dist[v]) {
+                    ways[v] = (ways[v] + ways[u]) % MOD;
+                }
+            }
+        }
+        return ways[n - 1];
+    }
+}
