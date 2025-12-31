@@ -1257,3 +1257,65 @@ class Solution {
         return 0;
     }
 }
+// Cheapest Flights Within K Stops
+
+class pair{
+    int stop;
+    int node;
+    int dis;
+    pair(int stop,int node,int dis){
+        this.stop=stop;
+        this.node=node;
+        this.dis=dis;
+    }
+}
+class dup{
+    int rou;
+    int di;
+    dup(int rou,int di){
+        this.rou=rou;
+        this.di=di;
+    }
+}
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        ArrayList<ArrayList<dup>>adj=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<flights.length;i++){
+            int a=flights[i][0];
+            int b=flights[i][1];
+            int c=flights[i][2];
+            adj.get(a).add(new dup (b,c));
+        }
+        PriorityQueue<pair>pq=new PriorityQueue<>((a,b)->a.stop-b.stop);
+        int dis[]=new int[n];
+        for(int i=0;i<n;i++){
+            dis[i]=Integer.MAX_VALUE;
+        }
+        dis[src]=0;
+        pq.add(new pair(0,src,0));
+        while(!pq.isEmpty()){
+           pair p=pq.poll();
+           int s=p.stop;
+           int no=p.node;
+           int d=p.dis;
+           if(s>k){
+            continue;
+           }
+           for(dup it:adj.get(no)){
+            int rou=it.rou;
+            int di=it.di;
+           if(d+di<dis[rou]&& s<=k){
+            dis[rou]=d+di;
+            pq.add(new pair(s+1,rou,dis[rou]));
+           }
+           }
+        }
+        if(dis[dst]==Integer.MAX_VALUE){
+        return -1;
+       }
+       return dis[dst];
+    }
+}
