@@ -1590,3 +1590,63 @@ class Solution {
         return city;
         }
     }
+// prim's algorithm
+class tuple {
+    int wt;
+    int node;
+    int paren;
+    tuple(int wt, int node, int paren) {
+        this.wt = wt;
+        this.node = node;
+        this.paren = paren;
+    }
+}
+
+class pair {
+    int first;
+    int second;
+    pair(int first, int second) {
+        this.first = first;
+        this.second = second;
+    }
+}
+
+class Solution {
+    public int spanningTree(int n, List<List<List<Integer>>> adj) {
+
+        PriorityQueue<tuple> pq =
+            new PriorityQueue<>((a, b) -> a.wt - b.wt);
+
+        int[] vis = new int[n];
+        int sum = 0;
+        List<pair> ll = new ArrayList<>();
+
+        pq.add(new tuple(0, 0, -1));
+
+        while (!pq.isEmpty()) {
+            tuple curr = pq.poll();
+            int w = curr.wt;
+            int u = curr.node;
+            int parent = curr.paren;
+
+            if (vis[u] == 1) continue;
+
+            vis[u] = 1;
+            sum += w;
+
+            if (parent != -1) {
+                ll.add(new pair(u, parent));
+            }
+            for (List<Integer> it : adj.get(u)) {
+                int v = it.get(0);
+                int wt = it.get(1);
+
+                if (vis[v] == 0) {
+                    pq.add(new tuple(wt, v, u));
+                }
+            }
+        }
+
+        return sum;
+    }
+}
