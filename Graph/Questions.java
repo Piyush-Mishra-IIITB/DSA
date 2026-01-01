@@ -1650,3 +1650,80 @@ class Solution {
         return sum;
     }
 }
+// kruskal's algo
+class Edge {
+    int u, v, wt;
+    Edge(int u, int v, int wt) {
+        this.u = u;
+        this.v = v;
+        this.wt = wt;
+    }
+}
+
+class DSU {
+    int[] parent, rank;
+
+    DSU(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+    }
+
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]); 
+        return parent[x];
+    }
+
+    boolean sameParent(int u, int v) {
+        return find(u) == find(v);
+    }
+
+    void union(int u, int v) {
+        int pu = find(u);
+        int pv = find(v);
+
+        if (pu == pv) return;
+
+        if (rank[pu] < rank[pv]) {
+            parent[pu] = pv;
+        } else if (rank[pv] < rank[pu]) {
+            parent[pv] = pu;
+        } else {
+            parent[pv] = pu;
+            rank[pu]++;
+        }
+    }
+}
+
+class Solution {
+    public int spanningTree(int V, int E, int[][] edges) {
+        List<Edge> list = new ArrayList<>();
+        for (int i = 0; i < E; i++) {
+            list.add(new Edge(edges[i][0], edges[i][1], edges[i][2]));
+        }
+        Collections.sort(list, (a, b) -> a.wt - b.wt);
+
+        DSU dsu = new DSU(V);
+
+        int mstWeight = 0;
+        int edgeCount = 0;
+
+        for (Edge e : list) {
+            if (!dsu.sameParent(e.u, e.v)) {
+                mstWeight += e.wt;
+                dsu.union(e.u, e.v);
+                edgeCount++;
+            }
+
+            if (edgeCount == V - 1)
+                break;
+        }
+
+        return mstWeight;
+    }
+}
+
