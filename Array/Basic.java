@@ -217,3 +217,23 @@ class Solution {
       return ans;
     }
 }
+// leetcode 217
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        int n=nums.length;
+      HashMap<Integer,Integer>hm=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(hm.containsKey(nums[i])){
+                hm.put(nums[i],hm.get(nums[i])+1);
+            }
+            else{
+                hm.put(nums[i],1);
+            }
+        }
+        for(int value:hm.values()){
+            if(value>1){
+                return true;
+            }
+        }
+        return false;
+}}
