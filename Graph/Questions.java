@@ -1791,3 +1791,103 @@ class Solution {
         return -1;
     }
 }
+// making a large island
+import java.util.*;
+
+class DSU {
+    int[] parent, size;
+
+    DSU(int n) {
+        parent = new int[n];
+        size = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void union(int u, int v) {
+        int pu = find(u);
+        int pv = find(v);
+
+        if (pu == pv) return;
+
+        if (size[pu] < size[pv]) {
+            parent[pu] = pv;
+            size[pv] += size[pu];
+        } else {
+            parent[pv] = pu;
+            size[pu] += size[pv];
+        }
+    }
+
+    int getSize(int x) {
+        return size[find(x)];
+    }
+}
+
+class Solution {
+    int[] dr = {-1, 0, 1, 0};
+    int[] dc = {0, 1, 0, -1};
+
+    public int largestIsland(int[][] grid) {
+        int n = grid.length;
+        DSU dsu = new DSU(n * n);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    int id1 = i * n + j;
+                    for (int d = 0; d < 4; d++) {
+                        int ni = i + dr[d];
+                        int nj = j + dc[d];
+                        if (ni >= 0 && nj >= 0 && ni < n && nj < n &&
+                                grid[ni][nj] == 1) {
+                            int id2 = ni * n + nj;
+                            dsu.union(id1, id2);
+                        }
+                    }
+                }
+            }
+        }
+
+        int maxArea = 0;
+
+        for (int i = 0; i < n * n; i++) {
+            if (grid[i / n][i % n] == 1) {
+                maxArea = Math.max(maxArea, dsu.getSize(i));
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 0) {
+                    Set<Integer> parents = new HashSet<>();
+                    int area = 1;
+
+                    for (int d = 0; d < 4; d++) {
+                        int ni = i + dr[d];
+                        int nj = j + dc[d];
+
+                        if (ni >= 0 && nj >= 0 && ni < n && nj < n &&
+                                grid[ni][nj] == 1) {
+                            int parent = dsu.find(ni * n + nj);
+                            if (parents.add(parent)) {
+                                area += dsu.size[parent];
+                            }
+                        }
+                    }
+                    maxArea = Math.max(maxArea, area);
+                }
+            }
+        }
+
+        return maxArea;
+    }
+}
