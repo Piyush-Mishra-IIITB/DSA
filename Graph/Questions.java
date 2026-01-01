@@ -1726,4 +1726,68 @@ class Solution {
         return mstWeight;
     }
 }
+// Number of Operations to Make Network Connected
+class Solution {
 
+    class DisjointSet {
+        int[] parent, rank;
+
+        DisjointSet(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+                rank[i] = 0;
+            }
+        }
+
+        int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+
+        boolean union(int x, int y) {
+            int px = find(x);
+            int py = find(y);
+
+            if (px == py) return false;
+
+            if (rank[px] < rank[py]) {
+                parent[px] = py;
+            } else if (rank[px] > rank[py]) {
+                parent[py] = px;
+            } else {
+                parent[py] = px;
+                rank[px]++;
+            }
+            return true;
+        }
+    }
+
+    public int makeConnected(int n, int[][] connections) {
+
+        DisjointSet ds = new DisjointSet(n);
+        int extraEdges = 0;
+
+        for (int[] edge : connections) {
+            if (!ds.union(edge[0], edge[1])) {
+                extraEdges++;
+            }
+        }
+
+        int components = 0;
+        for (int i = 0; i < n; i++) {
+            if (ds.find(i) == i) {
+                components++;
+            }
+        }
+
+        if (extraEdges >= components - 1) {
+            return components - 1;
+        }
+
+        return -1;
+    }
+}
