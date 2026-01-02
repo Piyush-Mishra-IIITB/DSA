@@ -1891,3 +1891,50 @@ class Solution {
         return maxArea;
     }
 }
+// DSU
+import java.util.*;
+class DisJSet{
+    List<Integer>parent=new ArrayList<>();
+    List<Integer>rank=new ArrayList<>();
+    DisJSet(int n){
+        for(int i=0;i<n;i++){
+            parent.add(i);
+            rank.add(0);
+        }
+    }
+    public int findUpar(int node){
+        if(node==parent.get(node)){
+            return node;
+        }
+       int uper=findUpar(parent.get(node));
+       parent.set(node,uper);
+       return parent.get(node);
+    }
+    public void UnionByRank(int u,int v){
+        int pu=findUpar(u);
+        int pv=findUpar(v);
+        if(pu==pv){
+            return;
+        }
+        if(rank.get(pu)>rank.get(pv)){
+            parent.set(pv,pu);
+        }
+       else if(rank.get(pu)<rank.get(pv)){
+            parent.set(pu,pv);
+        }
+        else{
+            parent.set(pu,pv);
+            int r=rank.get(pv);
+            rank.set(pv,r+1);
+        }
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        DisJSet ss=new DisJSet(5);
+        ss.UnionByRank(3,4);
+        ss.UnionByRank(2,3);
+        ss.UnionByRank(1,2);
+       System.out.print(ss.findUpar(1));
+    }
+}
