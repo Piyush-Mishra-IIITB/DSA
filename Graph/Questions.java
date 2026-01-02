@@ -1938,3 +1938,47 @@ class Main {
        System.out.print(ss.findUpar(1));
     }
 }
+// DSU -part2
+import java.util.*;
+class DisJSet{
+    List<Integer>parent=new ArrayList<>();
+    List<Integer>size=new ArrayList<>();
+    DisJSet(int n){
+        for(int i=0;i<n;i++){
+            parent.add(i);
+            size.add(1);
+        }
+    }
+    public int findUpar(int node){
+        if(node==parent.get(node)){
+            return node;
+        }
+       int uper=findUpar(parent.get(node));
+       parent.set(node,uper);
+       return parent.get(node);
+    }
+public void UnionBySize(int u, int v) {
+    int pu = findUpar(u);
+    int pv = findUpar(v);
+
+    if (pu == pv) return;
+
+    if (size.get(pu) > size.get(pv)) {
+        parent.set(pv, pu);
+        size.set(pu, size.get(pu) + size.get(pv));
+    }
+    else {
+        parent.set(pu, pv);
+        size.set(pv, size.get(pu) + size.get(pv));
+    }
+}
+}
+class Main {
+    public static void main(String[] args) {
+        DisJSet ss=new DisJSet(5);
+        ss.UnionBySize(3,4);
+        ss.UnionBySize(2,3);
+        ss.UnionBySize(1,2);
+       System.out.print(ss.findUpar(1));
+    }
+}
