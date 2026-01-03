@@ -143,3 +143,19 @@ class Solution {
         return true;
     }
 }
+// rotate String-leetcode 796
+class Solution {
+    public boolean rotateString(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+        String rotate=s;
+        for(int i=0;i<s.length();i++){
+             if(rotate.equals(t)){
+                return true;
+             }
+             rotate=rotate.substring(1)+rotate.charAt(0);
+        }
+        return false;
+    }
+}
