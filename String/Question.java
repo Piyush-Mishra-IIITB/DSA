@@ -324,3 +324,36 @@ class Solution {
         return maxLen;
     }
 }
+// leetcode-290
+class Solution {
+    public boolean wordPattern(String p, String s) {
+
+        String[] arr = s.split(" ");
+        if (p.length() != arr.length) return false;
+
+        HashMap<Character, String> mapPS = new HashMap<>();
+        HashMap<String, Character> mapSP = new HashMap<>();
+
+        for (int i = 0; i < p.length(); i++) {
+            char c = p.charAt(i);
+            String word = arr[i];
+
+            if (mapPS.containsKey(c)) {
+                if (!mapPS.get(c).equals(word)) {
+                    return false;
+                }
+            } else {
+                mapPS.put(c, word);
+            }
+            if (mapSP.containsKey(word)) {
+                if (mapSP.get(word) != c) {
+                    return false;
+                }
+            } else {
+                mapSP.put(word, c);
+            }
+        }
+
+        return true;
+    }
+}
