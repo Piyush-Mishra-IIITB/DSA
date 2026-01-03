@@ -437,3 +437,35 @@ class Solution {
         return extraOpen + extraClose;
     }
 }
+// longest palindromic substring-leetcode 5
+class Solution {
+    public String longestPalindrome(String s) {
+        StringBuilder out=new StringBuilder("");
+        for(int i=0;i<s.length();i++){
+            for(int j=i+1;j<=s.length();j++){
+                String a=s.substring(i,j);
+                if(palin(a)){
+                    if(a.length()>out.length()){
+                        out.setLength(0);
+                        out.append(a);
+                    }
+                }
+            }
+        }
+        return out.toString();
+    }
+    public boolean palin(String s){
+        int start=0;
+        int end=s.length()-1;
+        while(start<=end){
+            char c=s.charAt(start);
+            char d=s.charAt(end);
+            if(c != d){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
