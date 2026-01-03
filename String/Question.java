@@ -185,3 +185,21 @@ class Solution {
         return res.toString();
     }
 }
+// max nesting depth of paranthesis-leetcode 1614
+class Solution {
+    public int maxDepth(String s) {
+      int depth=0;
+      int maxdepth=0;
+      for(int i=0;i<s.length();i++){
+        char c=s.charAt(i);
+        if(c=='('){
+            depth++;
+            maxdepth=Math.max(depth,maxdepth);
+        }
+        else if(c==')'){
+            depth--;
+        }
+      }
+      return maxdepth;
+    }
+}
