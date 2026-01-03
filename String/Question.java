@@ -78,3 +78,68 @@ class Solution {
        return "";
     }
 }
+// longest common prefix
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+
+        if (strs == null || strs.length == 0) return "";
+
+        StringBuilder ss = new StringBuilder(strs[0]);
+
+        for (int i = 1; i < strs.length; i++) {
+            String a = ss.toString();   
+            String b = strs[i];
+
+            StringBuilder temp = new StringBuilder();
+
+            for (int j = 0; j < Math.min(a.length(), b.length()); j++) {
+                if (a.charAt(j) != b.charAt(j)) {
+                    break;
+                }
+                temp.append(a.charAt(j));
+            }
+
+            ss = temp; 
+
+            if (ss.length() == 0) {
+                return "";
+            }
+        }
+
+        return ss.toString();
+    }
+}
+// isomorphic strings
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        HashMap<Character,Character>ss=new HashMap<>();
+        HashMap<Character,Character>ss1=new HashMap<>();
+        if(t.length()!=s.length()){
+            return false;
+        }
+        for(int i=0;i<t.length();i++){
+            if(ss.containsKey(s.charAt(i))){
+                char a=ss.get(s.charAt(i));
+                if(t.charAt(i)!=a){
+                    return false;
+                }
+                ss.put(s.charAt(i),a);
+            }else{
+                ss.put(s.charAt(i),t.charAt(i));
+            }
+        }
+        for(int i=0;i<t.length();i++){
+            
+            if(ss1.containsKey(t.charAt(i))){
+                char a=ss1.get(t.charAt(i));
+                if(s.charAt(i)!=a){
+                    return false;
+                }
+                ss1.put(t.charAt(i),a);
+            }else{
+                ss1.put(t.charAt(i),s.charAt(i));
+            }
+        }
+        return true;
+    }
+}
