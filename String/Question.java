@@ -384,3 +384,31 @@ class Solution {
         return a;
     }
 }
+// merge strings alternately-leetcode-1768
+class Solution {
+    public String mergeAlternately(String w1, String w2) {
+        int i=0;
+        int j=0;
+        int min=Math.min(w1.length(),w2.length());
+        StringBuilder ss=new StringBuilder("");
+        while(i<min&&j<min){
+               char c=w1.charAt(i);
+               char d=w2.charAt(j);
+               ss.append(c);
+               ss.append(d);
+               i++;
+               j++;
+        }
+        while(j<w2.length()){
+            char d=w2.charAt(j);
+            ss.append(d);
+            j++;
+        }
+        while(i<w1.length()){
+            char c=w1.charAt(i);
+            ss.append(c);
+            i++;
+        }
+        return ss.toString();
+    }
+}
