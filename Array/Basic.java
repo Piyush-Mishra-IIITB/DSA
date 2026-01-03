@@ -278,3 +278,28 @@ class Solution {
         return ans;
     }
 }
+// longest consecutive sequence-leetcode 128
+class Solution {
+    public int longestConsecutive(int[] arr) {
+        if (arr.length == 0) return 0;
+        TreeSet<Integer>set=new TreeSet<>();
+        for(int i=0;i<arr.length;i++){
+              set.add(arr[i]);
+        }
+        Iterator<Integer>it=set.iterator();
+        int prev=it.next();
+        int maxlen=1;
+        int currlen=1;
+        while(it.hasNext()){
+            int curr=it.next();
+            if(curr==prev+1){
+                currlen++;
+            }else{
+                currlen=1;
+            }
+            maxlen=Math.max(currlen,maxlen);
+            prev=curr;
+        }
+        return maxlen;
+    }
+}
