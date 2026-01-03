@@ -250,3 +250,31 @@ class Solution {
         }
         return true;
 }}
+// leetcode 349 Intersection of 2 array
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+
+        Set<Integer> set = new HashSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        for (int i = 0; i < nums1.length; i++) {
+            set.add(nums1[i]);
+        }
+        for (int i = 0; i < nums2.length; i++) {
+            set2.add(nums2[i]);
+        }
+
+        List<Integer> ll = new ArrayList<>();
+
+        for (int val : set) {
+            if (set2.contains(val)) {
+                ll.add(val);
+            }
+        }
+        int[] ans = new int[ll.size()];
+        for (int i = 0; i < ll.size(); i++) {
+            ans[i] = ll.get(i);
+        }
+
+        return ans;
+    }
+}
