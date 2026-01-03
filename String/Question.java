@@ -234,3 +234,36 @@ class Solution {
         return sum;
     }
 }
+// leetcode 8
+class Solution {
+    public int myAtoi(String s) {
+
+        s = s.trim();
+        if (s.length() == 0) return 0;
+
+        StringBuilder ss = new StringBuilder();
+        int i = 0;
+
+        if (s.charAt(i) == '-' || s.charAt(i) == '+') {
+            ss.append(s.charAt(i));
+            i++;
+        }
+        while (i < s.length()) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') {
+                break;
+            }
+            ss.append(c);
+            i++;
+        }
+        if (ss.length() == 0 || ss.toString().equals("-") || ss.toString().equals("+")) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(ss.toString());
+        } catch (NumberFormatException e) {
+            return ss.charAt(0) == '-' ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        }
+    }
+}
+
