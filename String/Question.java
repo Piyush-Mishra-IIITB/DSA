@@ -412,3 +412,28 @@ class Solution {
         return ss.toString();
     }
 }
+// min add to make parenhesis valid-leetcode 921
+class Solution {
+    public int minAddToMakeValid(String s) {
+
+        int extraClose = 0;
+        HashMap<Character, Integer> hm = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+
+            if (c == '(') {
+                hm.put('(', hm.getOrDefault('(', 0) + 1);
+            } else { 
+                if (hm.getOrDefault('(', 0) > 0) {
+                    hm.put('(', hm.get('(') - 1);
+                } else {
+                    extraClose++;
+                }
+            }
+        }
+
+        int extraOpen = hm.getOrDefault('(', 0);
+        return extraOpen + extraClose;
+    }
+}
