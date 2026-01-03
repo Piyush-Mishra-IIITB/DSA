@@ -281,4 +281,25 @@ class Solution {
         return out;
     }
 }
-
+// find the index of the first occurrence in a string
+// leetcode 28
+class Solution {
+    public int strStr(String s, String t) {
+        if(t.length()>s.length()){
+            return -1;
+        }
+        int n=s.length();
+        int m=t.length();
+        int i=0;
+        int j=m;
+        while(j<=n){
+            String ss=s.substring(i,j);
+            if(ss.equals(t)){
+                return i;
+            }
+            i++;
+            j++;
+        }
+        return -1;
+    }
+}
