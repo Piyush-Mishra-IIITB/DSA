@@ -60,3 +60,20 @@ return prev;
         
     }
 }
+// house robber
+class Solution {
+    int dp[];
+    public int rob(int[] arr) {
+        dp=new int[arr.length+1];
+        return helper(arr, arr.length - 1,dp);
+    }
+
+    private int helper(int[] arr, int n,int dp[]) {
+        if (n < 0) return 0;
+        if (n == 0) return arr[0];
+        if(dp[n]!=0){return dp[n];}
+        int pick = arr[n] + helper(arr, n - 2,dp);
+        int notPick = helper(arr, n - 1,dp);
+        return dp[n]=Math.max(pick, notPick);
+    }
+}
