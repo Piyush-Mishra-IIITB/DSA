@@ -111,10 +111,6 @@ class Solution {
 
 
 }
-    public static void main(String args[]){
-
-    }
-}
 // variable sliding window
 // leetcode-209
 class Solution {
