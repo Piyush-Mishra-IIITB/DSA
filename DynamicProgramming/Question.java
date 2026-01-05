@@ -265,3 +265,35 @@ class Solution {
     }
 }
 
+//minimum falling path sum 931
+class Solution {
+    int dp[][];
+    public int minFallingPathSum(int[][] matrix) {
+        int output=Integer.MAX_VALUE;
+        dp=new int[matrix.length][matrix.length];
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix.length;j++){
+                dp[i][j]=Integer.MAX_VALUE;
+            }
+        }
+        for(int j=0;j<matrix.length;j++){
+            output=Math.min(output,helper(matrix.length-1,j,matrix,dp));
+        }
+        return output;
+    }
+    public int helper(int i,int j,int arr[][],int dp[][]){
+        if(j>=arr[0].length || j<0){
+            return 10000000;
+        }
+        if(i==0){
+            return arr[0][j];
+        }
+        if(dp[i][j]!=Integer.MAX_VALUE){
+            return dp[i][j];
+        }
+        int u=arr[i][j]+helper(i-1,j,arr,dp);
+        int dl=arr[i][j]+helper(i-1,j-1,arr,dp);
+        int dr=arr[i][j]+helper(i-1,j+1,arr,dp);
+        return dp[i][j]=Math.min(u,Math.min(dl,dr));
+    }
+}
