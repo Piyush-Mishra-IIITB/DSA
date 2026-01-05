@@ -352,3 +352,57 @@ class Solution {
         return dp[i][j1][j2] = max;
     }
 }
+// cherry pickup 2-leetcode 1463
+class Solution {
+    int[][][] dp;
+
+    public int cherryPickup(int[][] grid) {
+        int r = grid.length;
+        int c = grid[0].length;
+        dp = new int[r][c][c];
+
+        for (int i = 0; i < r; i++) {
+            for (int j1 = 0; j1 < c; j1++) {
+                for (int j2 = 0; j2 < c; j2++) {
+                    dp[i][j1][j2] = Integer.MIN_VALUE;
+                }
+            }
+        }
+
+        return helper(0, 0, c - 1, grid);
+    }
+
+    public int helper(int i, int j1, int j2, int[][] arr) {
+
+        if (j1 < 0 || j1 >= arr[0].length || j2 < 0 || j2 >= arr[0].length) {
+            return (int) -1e9;
+        }
+
+        if (i == arr.length - 1) {
+            if (j1 == j2) return arr[i][j1];
+            else return arr[i][j1] + arr[i][j2];
+        }
+
+        if (dp[i][j1][j2] != Integer.MIN_VALUE) {
+            return dp[i][j1][j2];
+        }
+
+        int max = (int) -1e9;
+
+        for (int di = -1; di <= 1; di++) {
+            for (int dj = -1; dj <= 1; dj++) {
+
+                int value;
+                if (j1 == j2)
+                    value = arr[i][j1];
+                else
+                    value = arr[i][j1] + arr[i][j2];
+
+                value += helper(i + 1, j1 + di, j2 + dj, arr);
+                max = Math.max(max, value);
+            }
+        }
+
+        return dp[i][j1][j2] = max;
+    }
+}
