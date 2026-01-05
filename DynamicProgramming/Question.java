@@ -111,3 +111,46 @@ class Solution {
         return dp[n] = Math.max(pick, notPick);
     }
 }
+// Ninja Training
+import java.util.Arrays;
+
+class Solution {
+    int dp[][];
+
+    public int helper(int day, int last, int[][] points) {
+        if (day == 0) {
+            int max = 0;
+            for (int i = 0; i < 3; i++) {
+                if (i != last) {
+                    max = Math.max(max, points[0][i]);
+                }
+            }
+            return max;
+        }
+
+        if (dp[day][last] != -1) {
+            return dp[day][last];
+        }
+
+        int max = 0;
+        for (int i = 0; i < 3; i++) {
+            if (i != last) {
+                int curr = points[day][i] + helper(day - 1, i, points);
+                max = Math.max(max, curr);
+            }
+        }
+
+        return dp[day][last] = max;
+    }
+
+    public int ninjaTraining(int[][] points) {
+        int n = points.length;
+        dp = new int[n][4];
+
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        return helper(n - 1, 3, points);
+    }
+}
