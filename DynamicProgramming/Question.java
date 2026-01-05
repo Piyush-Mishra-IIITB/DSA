@@ -207,3 +207,27 @@ class Solution {
         return dp[m][n]=up+left;
     }
 }
+//min path sum-leetcode 64
+class Solution {
+    int dp[][];
+    public int minPathSum(int[][] grid) {
+        dp=new int[grid.length][grid[0].length];
+        return helper(grid.length - 1, grid[0].length - 1, grid,dp);
+    }
+
+    public int helper(int m, int n, int[][] grid,int dp[][]) {
+        if (m == 0 && n == 0) return grid[0][0];
+        if (m < 0 || n < 0) return Integer.MAX_VALUE;
+        if(dp[m][n]!=0){
+            return dp[m][n];
+        }
+        int up = helper(m - 1, n, grid,dp);
+        int left = helper(m, n - 1, grid,dp);
+
+        int minPrev = Math.min(up, left);
+        if (minPrev == Integer.MAX_VALUE) return Integer.MAX_VALUE;
+
+        return dp[m][n]=grid[m][n] + minPrev;
+    }
+    
+}
