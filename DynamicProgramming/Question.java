@@ -616,3 +616,34 @@ class Solution {
         return dp[index][target]=Math.min(take,nottake);
     }
 }
+// target sum -leetcode 494
+class Solution {
+    int dp[][];
+    public int findTargetSumWays(int[] nums, int target) {
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        dp=new int[nums.length][2*sum+1];
+        for(int i=0;i<nums.length;i++){
+            for(int j=0;j<2*sum+1;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return helper(nums.length-1,target,nums,sum);
+    }
+    public int helper(int index,int target,int arr[],int sum){
+        if (Math.abs(target) > sum) return 0;
+     if(index==0){
+            int count=0;
+            if(target==arr[0]){count++;}
+            if(target== -arr[0]){count++;}
+     return count;}
+     if(dp[index][target+sum]!=-1){
+        return dp[index][target+sum];
+     }
+     int plus=helper(index-1,target-arr[index],arr,sum);
+     int minus=helper(index-1,target+arr[index],arr,sum);
+     return dp[index][target+sum]=plus+minus;
+    }
+}
