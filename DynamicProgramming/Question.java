@@ -493,3 +493,35 @@ class Solution {
         return dp[index][target] = notTake || take;
     }
 }
+// partition sum equal subset-leetcode 416
+class Solution {
+    Boolean dp[][];
+    public boolean canPartition(int[] nums) {
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        dp=new Boolean[nums.length][sum+1];
+        if(sum%2!=0){
+            return false;
+        }
+        int target=sum/2;
+       return helper(nums.length-1,target,nums);
+    }
+    public boolean helper(int index,int target,int arr[]){
+        if(target==0){
+            return true;
+        }
+        if(index==0){
+            return arr[0]==target;
+        }
+        if(dp[index][target]!=null){
+            return dp[index][target];
+        }
+        boolean nottake=helper(index-1,target,arr);
+        boolean take=false;
+        if(target>=arr[index]){
+            take=helper(index-1,target-arr[index],arr);
+        } return dp[index][target]=take || nottake;
+    }
+}
