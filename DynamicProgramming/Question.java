@@ -525,3 +525,28 @@ class Solution {
         } return dp[index][target]=take || nottake;
     }
 }
+// count subset with  sum k
+class Solution {
+    public int perfectSum(int[] arr, int K) {
+       return find(arr.length-1,K,arr);
+    }
+    public int find(int index,int k,int arr[]){
+        if(k==0){
+            return 1;
+        }
+        if(index==0){
+            if(k==arr[0]){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        int notpick=find(index-1,k,arr);
+        int pick=0;
+        if(arr[index]<=k){
+            pick=find(index-1,k-arr[index],arr);
+        }
+        return pick+notpick;
+    }
+}
+
