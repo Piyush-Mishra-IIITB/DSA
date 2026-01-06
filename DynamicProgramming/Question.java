@@ -549,4 +549,39 @@ class Solution {
         return pick+notpick;
     }
 }
-
+// 0/1 knapsack
+class Solution {
+    int dp[][];
+    public int knapsack(int W, int val[], int wt[]) {
+        dp=new int[val.length][W+1];
+        for(int i=0;i<val.length;i++){
+            for(int j=0;j<=W;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return helper(val.length-1,W,val,wt);
+        
+    }
+    public int helper(int index,int weight,int val[],int wt[]){
+        if(weight==0){
+            return 0;
+        }
+        if(index==0){
+            if(weight>=wt[0]){
+                return val[0];
+            }else{
+                return 0;
+            }
+        }
+        if(dp[index][weight]!=-1){
+            return dp[index][weight];
+        }
+        
+        int notpick=helper(index-1,weight,val,wt);
+        int pick=Integer.MIN_VALUE;
+        if(weight>=wt[index]){
+            pick=val[index]+helper(index-1,weight-wt[index],val,wt);
+        }
+        return dp[index][weight]=Math.max(pick,notpick);
+    }
+}
