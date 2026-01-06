@@ -585,3 +585,34 @@ class Solution {
         return dp[index][weight]=Math.max(pick,notpick);
     }
 }
+// minimum coins leetcode-322
+class Solution {
+    int dp[][];
+    public int coinChange(int[] coins, int amount) {
+        dp=new int[coins.length+1][amount+1];
+        int ans= helper(coins.length-1,amount,coins);
+        if(ans==(int)1e9){
+            return -1;
+        }else{
+            return ans;
+        }
+    }
+    public int helper(int index,int target,int arr[]){
+        if(index==0){
+              if(target%arr[index]==0){
+                return (target/arr[index]);
+              }else{
+                return (int)1e9;
+              }
+        }
+        if(dp[index][target]!=0){
+            return dp[index][target];
+        }
+        int nottake=0+helper(index-1,target,arr);
+        int take=(int)1e9;
+        if(arr[index]<=target){
+            take=1+helper(index,target-arr[index],arr);
+        }
+        return dp[index][target]=Math.min(take,nottake);
+    }
+}
