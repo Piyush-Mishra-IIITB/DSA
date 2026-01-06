@@ -461,3 +461,35 @@ class Solution {
         return cherries;
     }
 }
+// subset sum 
+class Solution {
+    Boolean dp[][];
+
+    public boolean isSubsetSum(int[] arr, int target) {
+        int n = arr.length;
+        dp = new Boolean[n][target + 1];
+        return helper(n - 1, target, arr);
+    }
+
+    public boolean helper(int index, int target, int[] arr) {
+
+        if (target == 0) return true;
+
+        if (index == 0) {
+            return target == arr[0];
+        }
+
+        if (dp[index][target] != null) {
+            return dp[index][target];
+        }
+
+        boolean notTake = helper(index - 1, target, arr);
+        boolean take = false;
+
+        if (target >= arr[index]) {
+            take = helper(index - 1, target - arr[index], arr);
+        }
+
+        return dp[index][target] = notTake || take;
+    }
+}
