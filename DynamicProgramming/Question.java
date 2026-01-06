@@ -647,3 +647,36 @@ class Solution {
      return dp[index][target+sum]=plus+minus;
     }
 }
+// coins change 2 -leetcode 518
+class Solution {
+    int dp[][];
+    public int change(int amount, int[] coins) {
+        dp=new int[coins.length][amount+1];
+        for(int i=0;i<coins.length;i++){
+            for(int j=0;j<=amount;j++){
+               dp[i][j]=-1;
+            }
+        }
+        return helper(coins.length-1,amount,coins);
+    }
+    public int helper(int index,int target,int arr[]){
+        if(target==0){
+            return 1;
+        }
+        if(index==0){
+            if(target%arr[0]==0){
+                return 1;
+            }
+            else{return 0;}
+        }
+        if(dp[index][target]!=-1){
+            return dp[index][target];
+        }
+        int notpick=helper(index-1,target,arr);
+        int pick=0;
+        if(target>=arr[index]){
+            pick=helper(index,target-arr[index],arr);
+        }
+        return dp[index][target]=pick+notpick;
+    }
+}
