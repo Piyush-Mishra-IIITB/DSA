@@ -680,3 +680,26 @@ class Solution {
         return dp[index][target]=pick+notpick;
     }
 }
+// unbounded knapsack
+class Solution {
+    public int unboundedKnapsack(int[] wt, int[] val, int n, int W) {
+    return helper(wt.length-1,W,val,wt);
+    }
+    public int helper(int indx,int target,int val[],int wt[]){
+        if(indx==0){
+            if(target%wt[indx]==0){
+                int v=target/wt[indx];
+                return v*val[0];
+            }else{
+                return 0;
+            }
+        }
+
+        int notpick=helper(indx-1,target,val,wt);
+        int pick=0;
+        if(wt[indx]<=target){
+            pick=val[indx]+helper(indx,target-wt[indx],val,wt);
+        }
+        return Math.max(notpick,pick);
+    }
+}
