@@ -703,3 +703,24 @@ class Solution {
         return Math.max(notpick,pick);
     }
 }
+// rod cutting -unbounded knapsack
+class Solution {
+    public int RodCutting(int price[], int n) {
+        return helper(price.length - 1, n, price);
+    }
+
+    public int helper(int indx, int n, int arr[]) {
+
+        if (indx == 0) {
+            return n * arr[0];
+        }
+
+        int notpick = helper(indx - 1, n, arr);
+        int pick = 0;
+        if (n >= indx + 1) {
+            pick = arr[indx] + helper(indx, n - (indx + 1), arr);
+        }
+
+        return Math.max(pick, notpick);
+    }
+}
