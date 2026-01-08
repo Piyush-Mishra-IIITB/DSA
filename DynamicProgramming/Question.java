@@ -941,7 +941,7 @@ class Solution {
         return sb.reverse().toString();
     }
 }
-// Dp on stocks
+// Dp on stocks-leetcode 121
 class Solution {
     public int maxProfit(int[] arr) {
         int prev=arr[0];
@@ -955,3 +955,38 @@ class Solution {
         return sell;
     }
 }
+// buy and sel stock2-leetcode 122
+class Solution {
+    int dp[][];
+    public int maxProfit(int[] prices) {
+        dp=new int[prices.length][2];
+        for(int i=0;i<prices.length;i++){
+            for(int j=0;j<2;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return helper(0, prices, 1);
+    }
+
+    public int helper(int i, int[] arr, int buy) {
+        if (i == arr.length) {
+            return 0;
+        }
+        if(dp[i][buy]!=-1){
+            return dp[i][buy];
+        }
+        int profit;
+        if (buy == 1) {
+            int b = -arr[i] + helper(i + 1, arr, 0); 
+            int not = helper(i + 1, arr, 1);        
+            profit = Math.max(b, not);
+        } else {
+            int sell = arr[i] + helper(i + 1, arr, 1); 
+            int not = helper(i + 1, arr, 0);          
+            profit = Math.max(sell, not);
+        }
+
+        return dp[i][buy]=profit;
+    }
+}
+
