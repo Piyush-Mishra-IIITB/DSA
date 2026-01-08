@@ -1014,3 +1014,27 @@ class Solution {
         }
          return dp[0][1];
     }
+    // buy and sell stock -3 leetcode 123
+    // brute force
+    class Solution {
+    int dp[][];
+    class Solution {
+    public int maxProfit(int[] prices) {
+        return helper(0,1,prices,2);
+    }
+    public int helper(int i,int buy,int arr[],int stop){
+        if(stop==0){return 0;}
+        if(i==arr.length){return 0;}
+        int price;
+        if(buy==1){
+            int b=-arr[i]+helper(i+1,0,arr,stop);
+            int not=helper(i+1,1,arr,stop);
+            price=Math.max(b,not);
+        }else{
+            int sell=arr[i]+helper(i+1,1,arr,stop-1);
+            int hold=helper(i+1,0,arr,stop);
+            price=Math.max(sell,hold);
+        }
+        return price;
+    }
+}
