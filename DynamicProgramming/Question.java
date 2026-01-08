@@ -989,4 +989,28 @@ class Solution {
         return dp[i][buy]=profit;
     }
 }
-
+// tabulation code for buy and sell stock 2
+class Solution {
+    int dp[][];
+    public int maxProfit(int[] prices) {
+        int n=prices.length;
+        dp=new int[n+1][2];
+        dp[n][0]=dp[n][1]=0;
+        for(int i=n-1;i>=0;i--){
+            for(int buy=0;buy<=1;buy++){
+                int profit;
+                if(buy==1){
+                    int b=-prices[i]+dp[i+1][0];
+                    int no=dp[i+1][1];
+                    profit=Math.max(b,no);
+                }else{
+                    int s=prices[i]+dp[i+1][1];
+                    int h=dp[i+1][0];
+                    profit=Math.max(s,h);
+                }
+                dp[i][buy]=profit;
+            }
+           
+        }
+         return dp[0][1];
+    }
