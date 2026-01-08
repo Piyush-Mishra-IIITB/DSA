@@ -941,3 +941,17 @@ class Solution {
         return sb.reverse().toString();
     }
 }
+// Dp on stocks
+class Solution {
+    public int maxProfit(int[] arr) {
+        int prev=arr[0];
+        int sell=0;
+        for(int i=1;i<arr.length;i++){
+            if(prev<arr[i]){
+               sell=Math.max(sell,arr[i]-prev);
+            }
+            prev=Math.min(prev,arr[i]);
+        }
+        return sell;
+    }
+}
