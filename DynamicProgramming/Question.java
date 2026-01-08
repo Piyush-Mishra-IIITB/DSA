@@ -1104,3 +1104,37 @@ class Solution {
         return dp[i][buy][stop]=price;
     }
 }
+//309. Best Time to Buy and Sell Stock with Cooldown
+class Solution {
+    int dp[][];
+    public int maxProfit(int[] prices) {
+        dp=new int[prices.length][2];
+        for(int i=0;i<prices.length;i++){
+            for(int j=0;j<2;j++){
+                dp[i][j]=-1;
+            }
+        }
+        return helper(0, prices, 1);
+    }
+
+    public int helper(int i, int[] arr, int buy) {
+        if (i >= arr.length) {
+            return 0;
+        }
+        if(dp[i][buy]!=-1){
+            return dp[i][buy];
+        }
+        int profit;
+        if (buy == 1) {
+            int b = -arr[i] + helper(i + 1, arr, 0); 
+            int not = helper(i + 1, arr, 1);        
+            profit = Math.max(b, not);
+        } else {
+            int sell = arr[i] + helper(i + 2, arr, 1); 
+            int not = helper(i + 1, arr, 0);          
+            profit = Math.max(sell, not);
+        }
+
+        return dp[i][buy]=profit;
+    }
+}
