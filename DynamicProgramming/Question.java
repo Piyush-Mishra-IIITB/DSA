@@ -837,3 +837,31 @@ class Solution {
             }
         }
 }
+// Minimum Insertion Steps to Make a String Palindrome
+class Solution {
+    int dp[][];
+    public int minInsertions(String s) {
+        String s2=new StringBuilder(s).reverse().toString();
+        dp=new int[s.length()][s2.length()];
+        for(int i=0;i<s.length();i++){
+            for(int j=0;j<s2.length();j++){
+                dp[i][j]=-1;
+            }
+        }
+        int lps= helper(s.length()-1,s2.length()-1,s,s2);
+        return s.length()-lps;
+    }
+    public int helper(int i,int j,String s1,String s2){
+      if(i<0||j<0){
+        return 0;
+      }
+       if(dp[i][j]!=-1){
+        return dp[i][j];
+       }
+        if(s1.charAt(i)==s2.charAt(j)){
+            return dp[i][j]= 1+helper(i-1,j-1,s1,s2);
+        }else{
+              return dp[i][j]=Math.max(helper(i,j-1,s1,s2),helper(i-1,j,s1,s2));
+        }
+    }
+}
