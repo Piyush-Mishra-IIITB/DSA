@@ -324,3 +324,40 @@ class Solution {
     return a;
     }
 }
+// spiral matrix -2 leetcode 54
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] ans = new int[n][n];
+
+        int sr = 0, sc = 0;
+        int er = n - 1, ec = n - 1;
+        int a = 1;
+
+        while (sr <= er && sc <= ec) {
+
+            for (int i = sc; i <= ec; i++) {
+                ans[sr][i] = a++;
+            }
+            for (int j = sr + 1; j <= er; j++) {
+                ans[j][ec] = a++;
+            }
+            if (sr < er) {
+                for (int i = ec - 1; i >= sc; i--) {
+                    ans[er][i] = a++;
+                }
+            }
+            if (sc < ec) {
+                for (int i = er - 1; i >= sr + 1; i--) {
+                    ans[i][sc] = a++;
+                }
+            }
+
+            sr++;
+            er--;
+            sc++;
+            ec--;
+        }
+
+        return ans;
+    }
+}
