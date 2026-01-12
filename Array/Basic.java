@@ -361,3 +361,56 @@ class Solution {
         return ans;
     }
 }
+// 67. Add Binary
+class Solution {
+    public String addBinary(String a, String b) {
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        StringBuilder ans = new StringBuilder();
+        int carry = 0;
+
+        while (i >= 0 || j >= 0) {
+
+            char x = (i >= 0) ? a.charAt(i) : '0';
+            char y = (j >= 0) ? b.charAt(j) : '0';
+
+            if (x == '1' && y == '1' && carry == 0) {
+                carry = 1;
+                ans.append("0");
+            } 
+            else if (x == '1' && y == '1' && carry == 1) {
+                carry = 1;
+                ans.append("1");
+            } 
+            else if (x == '0' && y == '1' && carry == 0) {
+                ans.append("1");
+            }
+            else if (x == '0' && y == '1' && carry == 1) {
+                carry = 1;
+                ans.append("0");
+            } 
+            else if (x == '1' && y == '0' && carry == 1) {
+                carry = 1;
+                ans.append("0");
+            } 
+            else if (x == '1' && y == '0' && carry == 0) {
+                ans.append("1");
+            }
+            else if (x == '0' && y == '0' && carry == 1) {
+                carry = 0;
+                ans.append("1");
+            }
+            else {
+                ans.append("0");
+            }
+
+            i--;
+            j--;
+        }
+
+        if (carry == 1) ans.append("1");
+
+        return ans.reverse().toString();
+    }
+}
